@@ -9,60 +9,25 @@ import { ArrowLeft, Play, RefreshCw } from "lucide-react"
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 
 export default function StackLabPage() {
-  const [code, setCode] = useState(`// Implement a Stack in C with push, pop, peek, and isEmpty functions
+  const [code, setCode] = useState(`// Implement a Stack in C
+// Required functions: createStack(), push(), pop(), peek(), isEmpty()
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
 
-#define MAX_SIZE 100
+// Your implementation here
 
-// Define the Stack structure
-typedef struct {
-    // Initialize your stack here
-} Stack;
-
-// Function to initialize stack
-Stack* createStack() {
-    // Your code here
-}
-
-// Function to push an element
-void push(Stack* stack, int item) {
-    // Your code here
-}
-
-// Function to pop an element
-int pop(Stack* stack) {
-    // Your code here
-}
-
-// Function to peek at the top element
-int peek(Stack* stack) {
-    // Your code here
-}
-
-// Function to check if stack is empty
-bool isEmpty(Stack* stack) {
-    // Your code here
-}
-
-// Test function
 int main() {
-    Stack* stack = createStack();
-    
-    printf("%s\\n", isEmpty(stack) ? "true" : "false"); // Should print true
-    
-    push(stack, 10);
-    push(stack, 20);
-    push(stack, 30);
-    
-    printf("%d\\n", peek(stack)); // Should print 30
-    printf("%d\\n", pop(stack));  // Should print 30
-    printf("%d\\n", peek(stack)); // Should print 20
-    printf("%s\\n", isEmpty(stack) ? "true" : "false"); // Should print false
-    
-    free(stack); // Don't forget to free allocated memory
+    // Test your implementation here
+    // Example test cases:
+    // 1. Create a stack
+    // 2. Check if it's empty (should print true)
+    // 3. Push elements: 10, 20, 30
+    // 4. Peek top element (should print 30)
+    // 5. Pop an element (should print 30)
+    // 6. Peek again (should print 20)
+    // 7. Check if empty (should print false)
     return 0;
 }`)
   const [output, setOutput] = useState("")
@@ -76,10 +41,9 @@ int main() {
 
     try {
       // This is a simulation of C code execution
-      // In a real environment, you would need a C compiler or WASM
       let outputText = ""
 
-      // Check if the code contains the expected structure
+      // Check if the code contains the required functions
       const hasStackStruct = code.includes("typedef struct") || code.includes("struct Stack")
       const hasCreateStack = code.includes("createStack")
       const hasPush = code.includes("void push") || code.includes("int push")
@@ -88,18 +52,30 @@ int main() {
       const hasIsEmpty = code.includes("bool isEmpty")
 
       if (!hasStackStruct || !hasCreateStack || !hasPush || !hasPop || !hasPeek || !hasIsEmpty) {
-        outputText = "Error: Missing required stack functions or structure.\n"
+        outputText = "Error: Missing required stack functions or structure.\nMake sure you have implemented:\n- Stack structure\n- createStack()\n- push()\n- pop()\n- peek()\n- isEmpty()\n"
         setIsSuccess(false)
       } else {
-        // Simulate the output of a correct implementation
-        outputText = "true\n30\n30\n20\nfalse\n"
-
         // Check if the implementation seems reasonable
         const hasArray = code.includes("int items[") || code.includes("int *items")
         const hasTopIndex = code.includes("int top")
         const hasMemoryAllocation = code.includes("malloc(") && code.includes("free(")
+        const hasTestCases = code.includes("printf") && code.includes("push") && code.includes("pop")
 
-        setIsSuccess(hasArray && hasTopIndex && hasMemoryAllocation)
+        if (hasArray && hasTopIndex && hasMemoryAllocation && hasTestCases) {
+          outputText = "Your implementation looks good! Make sure to test with different cases:\n"
+          outputText += "1. Empty stack operations\n"
+          outputText += "2. Push to full stack (overflow)\n"
+          outputText += "3. Pop from empty stack (underflow)\n"
+          outputText += "4. Multiple push/pop operations\n"
+          setIsSuccess(true)
+        } else {
+          outputText = "Implementation incomplete. Check if you have:\n"
+          outputText += "- Array or dynamic memory for storage\n"
+          outputText += "- Top index tracking\n"
+          outputText += "- Proper memory management\n"
+          outputText += "- Test cases for all operations\n"
+          setIsSuccess(false)
+        }
       }
 
       setOutput(outputText)
@@ -112,60 +88,25 @@ int main() {
   }
 
   const resetCode = () => {
-    setCode(`// Implement a Stack in C with push, pop, peek, and isEmpty functions
+    setCode(`// Implement a Stack in C
+// Required functions: createStack(), push(), pop(), peek(), isEmpty()
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
 
-#define MAX_SIZE 100
+// Your implementation here
 
-// Define the Stack structure
-typedef struct {
-    // Initialize your stack here
-} Stack;
-
-// Function to initialize stack
-Stack* createStack() {
-    // Your code here
-}
-
-// Function to push an element
-void push(Stack* stack, int item) {
-    // Your code here
-}
-
-// Function to pop an element
-int pop(Stack* stack) {
-    // Your code here
-}
-
-// Function to peek at the top element
-int peek(Stack* stack) {
-    // Your code here
-}
-
-// Function to check if stack is empty
-bool isEmpty(Stack* stack) {
-    // Your code here
-}
-
-// Test function
 int main() {
-    Stack* stack = createStack();
-    
-    printf("%s\\n", isEmpty(stack) ? "true" : "false"); // Should print true
-    
-    push(stack, 10);
-    push(stack, 20);
-    push(stack, 30);
-    
-    printf("%d\\n", peek(stack)); // Should print 30
-    printf("%d\\n", pop(stack));  // Should print 30
-    printf("%d\\n", peek(stack)); // Should print 20
-    printf("%s\\n", isEmpty(stack) ? "true" : "false"); // Should print false
-    
-    free(stack); // Don't forget to free allocated memory
+    // Test your implementation here
+    // Example test cases:
+    // 1. Create a stack
+    // 2. Check if it's empty (should print true)
+    // 3. Push elements: 10, 20, 30
+    // 4. Peek top element (should print 30)
+    // 5. Pop an element (should print 30)
+    // 6. Peek again (should print 20)
+    // 7. Check if empty (should print false)
     return 0;
 }`)
     setOutput("")
@@ -223,22 +164,31 @@ bool isEmpty(Stack* stack) {
     return stack->top == -1;
 }
 
-// Test function
 int main() {
     Stack* stack = createStack();
     
-    printf("%s\\n", isEmpty(stack) ? "true" : "false"); // Should print true
+    printf("Is empty: %s\\n", isEmpty(stack) ? "true" : "false");
     
     push(stack, 10);
     push(stack, 20);
     push(stack, 30);
     
-    printf("%d\\n", peek(stack)); // Should print 30
-    printf("%d\\n", pop(stack));  // Should print 30
-    printf("%d\\n", peek(stack)); // Should print 20
-    printf("%s\\n", isEmpty(stack) ? "true" : "false"); // Should print false
+    printf("Top element: %d\\n", peek(stack));
+    printf("Popped: %d\\n", pop(stack));
+    printf("New top: %d\\n", peek(stack));
+    printf("Is empty: %s\\n", isEmpty(stack) ? "true" : "false");
     
-    free(stack); // Don't forget to free allocated memory
+    // Test overflow
+    for(int i = 0; i < MAX_SIZE + 1; i++) {
+        push(stack, i);
+    }
+    
+    // Test underflow
+    for(int i = 0; i < MAX_SIZE + 1; i++) {
+        pop(stack);
+    }
+    
+    free(stack);
     return 0;
 }`
 
@@ -256,7 +206,7 @@ int main() {
         <div className="lg:col-span-2">
           <h1 className="text-3xl font-bold mb-2">Stack Implementation Lab</h1>
           <p className="text-gray-600 mb-6">
-            Practice implementing a stack data structure and test your understanding.
+            Practice implementing a stack data structure with its core operations.
           </p>
 
           <Card className="mb-6">
@@ -265,27 +215,32 @@ int main() {
             </CardHeader>
             <CardContent>
               <ol className="list-decimal list-inside space-y-2">
-                <li>Implement a Stack class with the following methods:</li>
+                <li>Implement the following stack operations:</li>
                 <ul className="list-disc list-inside ml-6 space-y-1">
                   <li>
-                    <code>constructor()</code> - Initialize an empty stack
+                    <code>createStack()</code> - Initialize a new stack
                   </li>
                   <li>
-                    <code>push(element)</code> - Add an element to the top of the stack
+                    <code>push(stack, item)</code> - Add an element to the top
                   </li>
                   <li>
-                    <code>pop()</code> - Remove and return the top element
+                    <code>pop(stack)</code> - Remove and return the top element
                   </li>
                   <li>
-                    <code>peek()</code> - Return the top element without removing it
+                    <code>peek(stack)</code> - Return the top element without removing
                   </li>
                   <li>
-                    <code>isEmpty()</code> - Check if the stack is empty
+                    <code>isEmpty(stack)</code> - Check if stack is empty
                   </li>
                 </ul>
-                <li>Use an array to store the stack elements</li>
-                <li>Run the code to test your implementation</li>
-                <li>Make sure all test cases pass</li>
+                <li>Handle edge cases:</li>
+                <ul className="list-disc list-inside ml-6 space-y-1">
+                  <li>Stack overflow (pushing to full stack)</li>
+                  <li>Stack underflow (popping from empty stack)</li>
+                  <li>Memory management (allocation and deallocation)</li>
+                </ul>
+                <li>Write test cases in main() to verify your implementation</li>
+                <li>Run the code to check if all operations work correctly</li>
               </ol>
             </CardContent>
           </Card>
@@ -335,7 +290,7 @@ int main() {
                 <Alert className="mt-4 bg-green-50 border-green-200">
                   <AlertTitle className="text-green-800">Success!</AlertTitle>
                   <AlertDescription className="text-green-700">
-                    Your stack implementation is working correctly. All test cases passed!
+                    Your stack implementation looks good! Try testing edge cases and different scenarios.
                   </AlertDescription>
                 </Alert>
               )}
@@ -349,8 +304,9 @@ int main() {
                 <pre className="p-4 font-mono text-sm overflow-auto">{solutionCode}</pre>
               </div>
               <p className="mt-4 text-gray-600">
-                This is one possible solution. There are multiple ways to implement a stack correctly. The key is to
-                maintain the LIFO (Last In First Out) principle.
+                This solution demonstrates a complete stack implementation with proper error handling,
+                memory management, and comprehensive test cases. Study how it handles edge cases and
+                maintains the stack&apos;s LIFO (Last-In-First-Out) property.
               </p>
             </TabsContent>
           </Tabs>
@@ -363,33 +319,17 @@ int main() {
             </CardHeader>
             <CardContent>
               <div className="bg-gray-50 p-4 rounded-lg">
-                <div className="flex flex-col-reverse items-center">
-                  <div className="w-full border-2 border-dashed border-gray-300 p-4 text-center">Stack Base</div>
-                  {output.includes("30") && !output.includes("30\n30") && (
-                    <>
-                      <div className="w-full border-2 border-gray-300 p-4 text-center bg-white">10</div>
-                      <div className="w-full border-2 border-gray-300 p-4 text-center bg-white">
-                        20 <span className="text-green-600 font-bold">(Top)</span>
+                <div className="space-y-2">
+                  {output.split('\n').map((line, index) => {
+                    if (!line.includes(":")) return null;
+                    const [operation, value] = line.split(":");
+                    return (
+                      <div key={index} className="flex items-center gap-2">
+                        <span className="font-medium">{operation}:</span>
+                        <span>{value}</span>
                       </div>
-                    </>
-                  )}
-                  {output.includes("30\n30") && (
-                    <div className="w-full border-2 border-gray-300 p-4 text-center bg-white">10</div>
-                  )}
-                  {!output.includes("30") && output.includes("20") && (
-                    <>
-                      <div className="w-full border-2 border-gray-300 p-4 text-center bg-white">10</div>
-                      <div className="w-full border-2 border-gray-300 p-4 text-center bg-white">
-                        20 <span className="text-green-600 font-bold">(Top)</span>
-                      </div>
-                      <div className="w-full border-2 border-gray-300 p-4 text-center bg-white">30</div>
-                    </>
-                  )}
-                  {!output.includes("20") && output.includes("10") && (
-                    <div className="w-full border-2 border-gray-300 p-4 text-center bg-white">
-                      10 <span className="text-green-600 font-bold">(Top)</span>
-                    </div>
-                  )}
+                    );
+                  })}
                 </div>
               </div>
             </CardContent>
@@ -401,18 +341,16 @@ int main() {
             </CardHeader>
             <CardContent className="space-y-2">
               <p>
-                <span className="font-medium">Structure:</span> Define a struct with an array and a top index.
+                <span className="font-medium">Structure:</span> Use an array and top index
               </p>
               <p>
-                <span className="font-medium">Memory Management:</span> Use <code>malloc()</code> to allocate memory and{" "}
-                <code>free()</code> to release it.
+                <span className="font-medium">Push:</span> Increment top, then add element
               </p>
               <p>
-                <span className="font-medium">Empty Check:</span> A stack is empty when top is -1.
+                <span className="font-medium">Pop:</span> Return element, then decrement top
               </p>
               <p>
-                <span className="font-medium">Edge Cases:</span> Handle stack overflow (when top == MAX_SIZE-1) and
-                underflow (when stack is empty).
+                <span className="font-medium">Memory:</span> Allocate in create, free when done
               </p>
             </CardContent>
           </Card>
@@ -425,7 +363,7 @@ int main() {
               <ul className="space-y-2">
                 <li>
                   <Link href="/topics/stacks/applications" className="text-green-600 hover:underline">
-                    Explore Stack Applications
+                    Stack Applications
                   </Link>
                 </li>
                 <li>
@@ -434,8 +372,8 @@ int main() {
                   </Link>
                 </li>
                 <li>
-                  <Link href="/challenges" className="text-green-600 hover:underline">
-                    Try Stack Coding Challenges
+                  <Link href="/topics/linked-lists" className="text-green-600 hover:underline">
+                    Try Linked Lists
                   </Link>
                 </li>
               </ul>

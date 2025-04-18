@@ -8,11 +8,12 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { ArrowLeft, Play, RefreshCw } from "lucide-react"
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 
-export default function ArrayLabPage() {
-  const [code, setCode] = useState(`// Implement Array operations in C
-// Required functions: insert(), delete(), search(), display()
+export default function LinkedListLabPage() {
+  const [code, setCode] = useState(`// Implement a Singly Linked List in C
+// Required functions: createNode(), insert(), delete(), search(), display()
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <stdbool.h>
 
 // Your implementation here
@@ -20,13 +21,13 @@ export default function ArrayLabPage() {
 int main() {
     // Test your implementation here
     // Example test cases:
-    // 1. Create an array
-    // 2. Insert elements: 10 at index 0, 20 at index 1, 30 at index 1
-    // 3. Display array (should show: 10, 30, 20)
-    // 4. Delete element at index 1
-    // 5. Display array (should show: 10, 20)
-    // 6. Search for element 20 (should return index 1)
-    // 7. Search for element 30 (should return -1)
+    // 1. Create an empty linked list
+    // 2. Insert elements: 10 at beginning, 20 at end, 30 after 10
+    // 3. Display list (should show: 10 -> 30 -> 20)
+    // 4. Delete element 30
+    // 5. Display list (should show: 10 -> 20)
+    // 6. Search for element 20 (should find it)
+    // 7. Search for element 30 (should not find it)
     return 0;
 }`)
   const [output, setOutput] = useState("")
@@ -43,33 +44,35 @@ int main() {
       let outputText = ""
 
       // Check if the code contains the required functions
-      const hasInsert = code.includes("void insert") || code.includes("int insert")
-      const hasDelete = code.includes("void delete") || code.includes("int delete")
-      const hasSearch = code.includes("int search")
-      const hasDisplay = code.includes("void display")
+      const hasNode = code.includes("struct Node") || code.includes("typedef struct")
+      const hasCreateNode = code.includes("createNode")
+      const hasInsert = code.includes("insert")
+      const hasDelete = code.includes("delete")
+      const hasSearch = code.includes("search")
+      const hasDisplay = code.includes("display")
 
-      if (!hasInsert || !hasDelete || !hasSearch || !hasDisplay) {
-        outputText = "Error: Missing required array functions.\nMake sure you have implemented:\n- insert()\n- delete()\n- search()\n- display()\n"
+      if (!hasNode || !hasCreateNode || !hasInsert || !hasDelete || !hasSearch || !hasDisplay) {
+        outputText = "Error: Missing required linked list components.\nMake sure you have implemented:\n- Node structure\n- createNode()\n- insert()\n- delete()\n- search()\n- display()\n"
         setIsSuccess(false)
       } else {
         // Check if the implementation seems reasonable
-        const hasArrayAccess = code.includes("arr[")
-        const hasLoops = code.includes("for(") || code.includes("while(")
-        const hasSizeUpdate = code.includes("n++") || code.includes("n--") || code.includes("(*n)++") || code.includes("(*n)--")
+        const hasPointers = code.includes("->next") || code.includes("->data")
+        const hasMemoryAlloc = code.includes("malloc(") && code.includes("free(")
+        const hasNullCheck = code.includes("NULL") || code.includes("null")
         const hasTestCases = code.includes("printf") && code.includes("insert") && code.includes("delete")
 
-        if (hasArrayAccess && hasLoops && hasSizeUpdate && hasTestCases) {
+        if (hasPointers && hasMemoryAlloc && hasNullCheck && hasTestCases) {
           outputText = "Your implementation looks good! Make sure to test with different cases:\n"
-          outputText += "1. Empty array operations\n"
+          outputText += "1. Empty list operations\n"
           outputText += "2. Insert at beginning, middle, end\n"
           outputText += "3. Delete from beginning, middle, end\n"
           outputText += "4. Search for existing and non-existing elements\n"
           setIsSuccess(true)
         } else {
           outputText = "Implementation incomplete. Check if you have:\n"
-          outputText += "- Array access and bounds checking\n"
-          outputText += "- Size tracking\n"
-          outputText += "- Element shifting for insert/delete\n"
+          outputText += "- Proper pointer handling\n"
+          outputText += "- Memory allocation/deallocation\n"
+          outputText += "- NULL pointer checks\n"
           outputText += "- Test cases for all operations\n"
           setIsSuccess(false)
         }
@@ -85,10 +88,11 @@ int main() {
   }
 
   const resetCode = () => {
-    setCode(`// Implement Array operations in C
-// Required functions: insert(), delete(), search(), display()
+    setCode(`// Implement a Singly Linked List in C
+// Required functions: createNode(), insert(), delete(), search(), display()
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <stdbool.h>
 
 // Your implementation here
@@ -96,13 +100,13 @@ int main() {
 int main() {
     // Test your implementation here
     // Example test cases:
-    // 1. Create an array
-    // 2. Insert elements: 10 at index 0, 20 at index 1, 30 at index 1
-    // 3. Display array (should show: 10, 30, 20)
-    // 4. Delete element at index 1
-    // 5. Display array (should show: 10, 20)
-    // 6. Search for element 20 (should return index 1)
-    // 7. Search for element 30 (should return -1)
+    // 1. Create an empty linked list
+    // 2. Insert elements: 10 at beginning, 20 at end, 30 after 10
+    // 3. Display list (should show: 10 -> 30 -> 20)
+    // 4. Delete element 30
+    // 5. Display list (should show: 10 -> 20)
+    // 6. Search for element 20 (should find it)
+    // 7. Search for element 30 (should not find it)
     return 0;
 }`)
     setOutput("")
@@ -110,127 +114,192 @@ int main() {
   }
 
   const solutionCode = `#include <stdio.h>
+#include <stdlib.h>
 #include <stdbool.h>
 
-#define MAX_SIZE 100
+// Define the Node structure
+typedef struct Node {
+    int data;
+    struct Node* next;
+} Node;
 
-// Function to insert element at position
-void insert(int arr[], int* n, int pos, int x) {
-    if (*n >= MAX_SIZE) {
-        printf("Array is full\\n");
-        return;
+// Function to create a new node
+Node* createNode(int data) {
+    Node* newNode = (Node*)malloc(sizeof(Node));
+    if (newNode == NULL) {
+        printf("Memory allocation failed!\\n");
+        exit(1);
     }
-    if (pos < 0 || pos > *n) {
-        printf("Invalid position\\n");
-        return;
-    }
-    
-    // Shift elements to make space
-    for (int i = *n; i > pos; i--) {
-        arr[i] = arr[i-1];
-    }
-    
-    arr[pos] = x;
-    (*n)++;
+    newNode->data = data;
+    newNode->next = NULL;
+    return newNode;
 }
 
-// Function to delete element at position
-void delete(int arr[], int* n, int pos) {
-    if (*n <= 0) {
-        printf("Array is empty\\n");
-        return;
-    }
-    if (pos < 0 || pos >= *n) {
-        printf("Invalid position\\n");
-        return;
+// Function to insert at beginning
+Node* insertAtBeginning(Node* head, int data) {
+    Node* newNode = createNode(data);
+    newNode->next = head;
+    return newNode;
+}
+
+// Function to insert at end
+Node* insertAtEnd(Node* head, int data) {
+    Node* newNode = createNode(data);
+    
+    if (head == NULL) {
+        return newNode;
     }
     
-    // Shift elements to fill the gap
-    for (int i = pos; i < *n - 1; i++) {
-        arr[i] = arr[i+1];
+    Node* current = head;
+    while (current->next != NULL) {
+        current = current->next;
+    }
+    current->next = newNode;
+    return head;
+}
+
+// Function to insert after a node with given value
+Node* insertAfter(Node* head, int after, int data) {
+    Node* current = head;
+    
+    while (current != NULL && current->data != after) {
+        current = current->next;
     }
     
-    (*n)--;
+    if (current == NULL) {
+        printf("Element %d not found\\n", after);
+        return head;
+    }
+    
+    Node* newNode = createNode(data);
+    newNode->next = current->next;
+    current->next = newNode;
+    return head;
+}
+
+// Function to delete a node with given value
+Node* delete(Node* head, int data) {
+    if (head == NULL) {
+        printf("List is empty\\n");
+        return NULL;
+    }
+    
+    if (head->data == data) {
+        Node* temp = head->next;
+        free(head);
+        return temp;
+    }
+    
+    Node* current = head;
+    while (current->next != NULL && current->next->data != data) {
+        current = current->next;
+    }
+    
+    if (current->next == NULL) {
+        printf("Element %d not found\\n", data);
+        return head;
+    }
+    
+    Node* temp = current->next;
+    current->next = temp->next;
+    free(temp);
+    return head;
 }
 
 // Function to search for an element
-int search(int arr[], int n, int x) {
-    for (int i = 0; i < n; i++) {
-        if (arr[i] == x) {
-            return i;
+bool search(Node* head, int data) {
+    Node* current = head;
+    while (current != NULL) {
+        if (current->data == data) {
+            return true;
         }
+        current = current->next;
     }
-    return -1;
+    return false;
 }
 
-// Function to display array
-void display(int arr[], int n) {
-    if (n <= 0) {
-        printf("Array is empty\\n");
+// Function to display the list
+void display(Node* head) {
+    if (head == NULL) {
+        printf("List is empty\\n");
         return;
     }
-    for (int i = 0; i < n; i++) {
-        printf("%d ", arr[i]);
+    
+    Node* current = head;
+    while (current != NULL) {
+        printf("%d", current->data);
+        if (current->next != NULL) {
+            printf(" -> ");
+        }
+        current = current->next;
     }
     printf("\\n");
 }
 
+// Function to free the entire list
+void freeList(Node* head) {
+    Node* current = head;
+    while (current != NULL) {
+        Node* temp = current;
+        current = current->next;
+        free(temp);
+    }
+}
+
 int main() {
-    int arr[MAX_SIZE];
-    int n = 0;  // Current size of array
+    Node* head = NULL;
     
-    // Test insertion
-    printf("Inserting elements:\\n");
-    insert(arr, &n, 0, 10);  // arr = [10]
-    display(arr, n);
+    printf("Creating linked list...\\n");
     
-    insert(arr, &n, 1, 20);  // arr = [10, 20]
-    display(arr, n);
+    // Test insertions
+    printf("\\nInserting elements:\\n");
+    head = insertAtBeginning(head, 10);
+    display(head);
     
-    insert(arr, &n, 1, 30);  // arr = [10, 30, 20]
-    display(arr, n);
+    head = insertAtEnd(head, 20);
+    display(head);
     
-    // Test deletion
-    printf("\\nDeleting element at position 1:\\n");
-    delete(arr, &n, 1);      // arr = [10, 20]
-    display(arr, n);
+    head = insertAfter(head, 10, 30);
+    display(head);
     
     // Test search
     printf("\\nSearching for elements:\\n");
-    printf("Position of 20: %d\\n", search(arr, n, 20));  // Should print 1
-    printf("Position of 30: %d\\n", search(arr, n, 30));  // Should print -1
+    printf("Search 20: %s\\n", search(head, 20) ? "Found" : "Not found");
+    printf("Search 40: %s\\n", search(head, 40) ? "Found" : "Not found");
+    
+    // Test deletion
+    printf("\\nDeleting element 30:\\n");
+    head = delete(head, 30);
+    display(head);
     
     // Test edge cases
     printf("\\nTesting edge cases:\\n");
-    printf("Trying to delete from invalid position:\\n");
-    delete(arr, &n, 5);  // Should print error
+    printf("Trying to insert after non-existent element:\\n");
+    head = insertAfter(head, 40, 50);
     
-    printf("\\nTrying to insert at invalid position:\\n");
-    insert(arr, &n, -1, 40);  // Should print error
+    printf("\\nTrying to delete non-existent element:\\n");
+    head = delete(head, 40);
     
-    printf("\\nTrying to insert in full array:\\n");
-    for(int i = 0; i < MAX_SIZE + 1; i++) {
-        insert(arr, &n, n, i);  // Last one should print error
-    }
-    
+    // Clean up
+    freeList(head);
     return 0;
 }`
 
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="flex items-center gap-2 mb-6">
-        <Link href="/topics/arrays">
+        <Link href="/topics/linked-lists">
           <Button variant="outline" size="sm">
-            <ArrowLeft className="h-4 w-4 mr-2" /> Back to Arrays
+            <ArrowLeft className="h-4 w-4 mr-2" /> Back to Linked Lists
           </Button>
         </Link>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <div className="lg:col-span-2">
-          <h1 className="text-3xl font-bold mb-2">Array Operations Lab</h1>
+          <h1 className="text-3xl font-bold mb-2">Linked List Implementation Lab</h1>
           <p className="text-gray-600 mb-6">
-            Practice implementing basic array operations and test your understanding.
+            Practice implementing a singly linked list with its core operations.
           </p>
 
           <Card className="mb-6">
@@ -239,27 +308,30 @@ int main() {
             </CardHeader>
             <CardContent>
               <ol className="list-decimal list-inside space-y-2">
-                <li>Implement the following array operations:</li>
+                <li>Implement the following linked list operations:</li>
                 <ul className="list-disc list-inside ml-6 space-y-1">
                   <li>
-                    <code>insert(arr, n, pos, x)</code> - Insert element x at position pos
+                    <code>createNode(data)</code> - Create a new node with given data
                   </li>
                   <li>
-                    <code>delete(arr, n, pos)</code> - Delete element at position pos
+                    <code>insert()</code> - Insert a node (at beginning/end/after)
                   </li>
                   <li>
-                    <code>search(arr, n, x)</code> - Search for element x and return its position
+                    <code>delete(data)</code> - Delete node with given data
                   </li>
                   <li>
-                    <code>display(arr, n)</code> - Display all elements in the array
+                    <code>search(data)</code> - Search for a node with given data
+                  </li>
+                  <li>
+                    <code>display()</code> - Display all nodes in the list
                   </li>
                 </ul>
                 <li>Handle edge cases:</li>
                 <ul className="list-disc list-inside ml-6 space-y-1">
-                  <li>Array full (insertion not possible)</li>
-                  <li>Array empty (deletion not possible)</li>
-                  <li>Invalid position (out of bounds)</li>
-                  <li>Element not found (search)</li>
+                  <li>Empty list operations</li>
+                  <li>Memory allocation failures</li>
+                  <li>NULL pointer checks</li>
+                  <li>Element not found (delete/search)</li>
                 </ul>
                 <li>Write test cases in main() to verify your implementation</li>
                 <li>Run the code to check if all operations work correctly</li>
@@ -276,7 +348,7 @@ int main() {
             <TabsContent value="code">
               <div className="border rounded-lg overflow-hidden mb-4">
                 <div className="bg-gray-100 p-2 border-b flex justify-between items-center">
-                  <span className="font-medium">Array Implementation</span>
+                  <span className="font-medium">Linked List Implementation</span>
                   <div className="flex gap-2">
                     <Button variant="outline" size="sm" onClick={resetCode} className="h-8">
                       <RefreshCw className="h-4 w-4 mr-1" /> Reset
@@ -312,7 +384,7 @@ int main() {
                 <Alert className="mt-4 bg-green-50 border-green-200">
                   <AlertTitle className="text-green-800">Success!</AlertTitle>
                   <AlertDescription className="text-green-700">
-                    Your array implementation looks good! Try testing edge cases and different scenarios.
+                    Your linked list implementation looks good! Try testing edge cases and different scenarios.
                   </AlertDescription>
                 </Alert>
               )}
@@ -326,8 +398,8 @@ int main() {
                 <pre className="p-4 font-mono text-sm overflow-auto">{solutionCode}</pre>
               </div>
               <p className="mt-4 text-gray-600">
-                This solution demonstrates proper array manipulation with bounds checking and error handling.
-                Notice how elements are shifted during insertion and deletion to maintain array continuity.
+                This solution demonstrates a complete singly linked list implementation with proper memory management,
+                pointer handling, and error checking. Study how it maintains the list structure and handles edge cases.
               </p>
             </TabsContent>
           </Tabs>
@@ -336,7 +408,7 @@ int main() {
         <div className="space-y-6">
           <Card>
             <CardHeader className="pb-2">
-              <CardTitle>Array Visualization</CardTitle>
+              <CardTitle>List Visualization</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="bg-gray-50 p-4 rounded-lg">
@@ -362,16 +434,16 @@ int main() {
             </CardHeader>
             <CardContent className="space-y-2">
               <p>
-                <span className="font-medium">Insert:</span> Shift elements right to make space
+                <span className="font-medium">Structure:</span> Node with data and next pointer
               </p>
               <p>
-                <span className="font-medium">Delete:</span> Shift elements left to fill gap
+                <span className="font-medium">Insert:</span> Update next pointers carefully
               </p>
               <p>
-                <span className="font-medium">Search:</span> Check each element sequentially
+                <span className="font-medium">Delete:</span> Free memory after unlinking
               </p>
               <p>
-                <span className="font-medium">Display:</span> Loop through valid elements
+                <span className="font-medium">Memory:</span> Always check malloc results
               </p>
             </CardContent>
           </Card>
@@ -383,18 +455,18 @@ int main() {
             <CardContent>
               <ul className="space-y-2">
                 <li>
-                  <Link href="/topics/arrays/sorting" className="text-green-600 hover:underline">
-                    Try Sorting Algorithms
+                  <Link href="/topics/linked-lists/doubly" className="text-green-600 hover:underline">
+                    Try Doubly Linked Lists
                   </Link>
                 </li>
                 <li>
-                  <Link href="/topics/arrays/searching" className="text-green-600 hover:underline">
-                    Learn Search Techniques
+                  <Link href="/topics/stacks" className="text-green-600 hover:underline">
+                    Implement Stack using List
                   </Link>
                 </li>
                 <li>
-                  <Link href="/topics/linked-lists" className="text-green-600 hover:underline">
-                    Explore Linked Lists
+                  <Link href="/topics/queues" className="text-green-600 hover:underline">
+                    Explore Queues
                   </Link>
                 </li>
               </ul>
