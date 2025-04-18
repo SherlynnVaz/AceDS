@@ -6,25 +6,53 @@ import { jwtVerify } from 'jose'
 const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key'
 
 // Add the paths that need authentication
-const protectedPaths = ['/dashboard', '/topics']
+const protectedPaths: string[] = ['/dashboard', '/topics']
 
 export async function middleware(request: NextRequest) {
   const path = request.nextUrl.pathname
 
   // Check if the path needs authentication
   if (protectedPaths.some(prefix => path.startsWith(prefix))) {
+    // Get token from cookies
     const token = request.cookies.get('token')?.value
 
-    if (!token) {
-      return NextResponse.redirect(new URL('/login', request.url))
+    // Get token from Authorization header as fallback
+    const authHeader = request.headers.get('authorization')
+    const headerToken = authHeader?.startsWith('Bearer ') ? authHeader.substring(7) : null
+
+    // Use either cookie token or header token
+    const finalToken = token || headerToken
+
+    if (!finalToken) {
+      // Store the attempted URL to redirect back after login
+      const response = NextResponse.redirect(new URL('/login', request.url))
+      response.cookies.set('redirectTo', request.url)
+      return response
     }
 
     try {
       // Verify the token
-      await jwtVerify(token, new TextEncoder().encode(JWT_SECRET))
-      return NextResponse.next()
+      await jwtVerify(finalToken, new TextEncoder().encode(JWT_SECRET))
+      
+      // Token is valid, allow the request
+      const response = NextResponse.next()
+      
+      // Ensure token is also set in cookie if it came from header
+      if (!token && headerToken) {
+        response.cookies.set('token', headerToken, {
+          httpOnly: true,
+          secure: process.env.NODE_ENV === 'production',
+          sameSite: 'lax',
+          path: '/'
+        })
+      }
+      
+      return response
     } catch (error) {
-      return NextResponse.redirect(new URL('/login', request.url))
+      // Token is invalid, redirect to login
+      const response = NextResponse.redirect(new URL('/login', request.url))
+      response.cookies.set('redirectTo', request.url)
+      return response
     }
   }
 
