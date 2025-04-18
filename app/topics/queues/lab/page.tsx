@@ -10,7 +10,12 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 
 export default function QueueLabPage() {
   const [code, setCode] = useState(`// Implement a Queue in C
-// Required functions: createQueue(), enqueue(), dequeue(), peek(), isEmpty()
+// Required functions:
+// - createQueue(capacity): Create a new queue with given capacity
+// - enqueue(queue, item): Add an item to the rear of queue
+// - dequeue(queue): Remove and return item from front of queue
+// - front(queue): Get front item without removing
+// - isEmpty(queue): Check if queue is empty
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -20,14 +25,6 @@ export default function QueueLabPage() {
 
 int main() {
     // Test your implementation here
-    // Example test cases:
-    // 1. Create an empty queue
-    // 2. Check if it's empty (should print true)
-    // 3. Enqueue elements: 10, 20, 30
-    // 4. Peek front element (should print 10)
-    // 5. Dequeue an element (should print 10)
-    // 6. Peek again (should print 20)
-    // 7. Check if empty (should print false)
     return 0;
 }`)
   const [output, setOutput] = useState("")
@@ -48,30 +45,28 @@ int main() {
       const hasCreateQueue = code.includes("createQueue")
       const hasEnqueue = code.includes("enqueue")
       const hasDequeue = code.includes("dequeue")
-      const hasPeek = code.includes("peek")
+      const hasFront = code.includes("front")
       const hasIsEmpty = code.includes("isEmpty")
 
-      if (!hasQueueStruct || !hasCreateQueue || !hasEnqueue || !hasDequeue || !hasPeek || !hasIsEmpty) {
-        outputText = "Error: Missing required queue components.\nMake sure you have implemented:\n- Queue structure\n- createQueue()\n- enqueue()\n- dequeue()\n- peek()\n- isEmpty()\n"
+      if (!hasQueueStruct || !hasCreateQueue || !hasEnqueue || !hasDequeue || !hasFront || !hasIsEmpty) {
+        outputText = "Error: Missing required Queue components.\nMake sure you have implemented:\n- Queue structure\n- createQueue()\n- enqueue()\n- dequeue()\n- front()\n- isEmpty()\n"
         setIsSuccess(false)
       } else {
         // Check if the implementation seems reasonable
-        const hasArray = code.includes("int items[") || code.includes("int *items")
-        const hasFrontRear = code.includes("front") && code.includes("rear")
+        const hasPointers = code.includes("front") && code.includes("rear")
         const hasMemoryAlloc = code.includes("malloc(") && code.includes("free(")
         const hasTestCases = code.includes("printf") && code.includes("enqueue") && code.includes("dequeue")
 
-        if (hasArray && hasFrontRear && hasMemoryAlloc && hasTestCases) {
+        if (hasPointers && hasMemoryAlloc && hasTestCases) {
           outputText = "Your implementation looks good! Make sure to test with different cases:\n"
           outputText += "1. Empty queue operations\n"
-          outputText += "2. Enqueue to full queue (overflow)\n"
-          outputText += "3. Dequeue from empty queue (underflow)\n"
-          outputText += "4. Multiple enqueue/dequeue operations\n"
+          outputText += "2. Enqueue until full\n"
+          outputText += "3. Dequeue until empty\n"
+          outputText += "4. Check front element after operations\n"
           setIsSuccess(true)
         } else {
           outputText = "Implementation incomplete. Check if you have:\n"
-          outputText += "- Array or dynamic memory for storage\n"
-          outputText += "- Front and rear index tracking\n"
+          outputText += "- Front and rear pointers in Queue structure\n"
           outputText += "- Proper memory management\n"
           outputText += "- Test cases for all operations\n"
           setIsSuccess(false)
@@ -89,7 +84,12 @@ int main() {
 
   const resetCode = () => {
     setCode(`// Implement a Queue in C
-// Required functions: createQueue(), enqueue(), dequeue(), peek(), isEmpty()
+// Required functions:
+// - createQueue(capacity): Create a new queue with given capacity
+// - enqueue(queue, item): Add an item to the rear of queue
+// - dequeue(queue): Remove and return item from front of queue
+// - front(queue): Get front item without removing
+// - isEmpty(queue): Check if queue is empty
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -99,14 +99,6 @@ int main() {
 
 int main() {
     // Test your implementation here
-    // Example test cases:
-    // 1. Create an empty queue
-    // 2. Check if it's empty (should print true)
-    // 3. Enqueue elements: 10, 20, 30
-    // 4. Peek front element (should print 10)
-    // 5. Dequeue an element (should print 10)
-    // 6. Peek again (should print 20)
-    // 7. Check if empty (should print false)
     return 0;
 }`)
     setOutput("")
@@ -117,140 +109,105 @@ int main() {
 #include <stdlib.h>
 #include <stdbool.h>
 
-#define MAX_SIZE 100
-
 // Define the Queue structure
-typedef struct {
-    int items[MAX_SIZE];
-    int front;
-    int rear;
+typedef struct Queue {
+    int front, rear, size;
+    unsigned capacity;
+    int* array;
 } Queue;
 
 // Function to create a queue
-Queue* createQueue() {
+Queue* createQueue(unsigned capacity) {
     Queue* queue = (Queue*)malloc(sizeof(Queue));
-    if (queue == NULL) {
-        printf("Memory allocation failed!\\n");
-        exit(1);
-    }
-    queue->front = -1;
-    queue->rear = -1;
+    queue->capacity = capacity;
+    queue->front = queue->size = 0;
+    queue->rear = capacity - 1;
+    queue->array = (int*)malloc(queue->capacity * sizeof(int));
     return queue;
-}
-
-// Function to check if queue is empty
-bool isEmpty(Queue* queue) {
-    return queue->front == -1;
 }
 
 // Function to check if queue is full
 bool isFull(Queue* queue) {
-    return (queue->rear + 1) % MAX_SIZE == queue->front;
+    return (queue->size == queue->capacity);
 }
 
-// Function to add an element
+// Function to check if queue is empty
+bool isEmpty(Queue* queue) {
+    return (queue->size == 0);
+}
+
+// Function to add an item to the queue
 void enqueue(Queue* queue, int item) {
     if (isFull(queue)) {
-        printf("Queue Overflow\\n");
+        printf("Queue is full!\\n");
         return;
     }
-    
-    if (isEmpty(queue)) {
-        queue->front = 0;
-    }
-    
-    queue->rear = (queue->rear + 1) % MAX_SIZE;
-    queue->items[queue->rear] = item;
-    printf("Enqueued: %d\\n", item);
+    queue->rear = (queue->rear + 1) % queue->capacity;
+    queue->array[queue->rear] = item;
+    queue->size = queue->size + 1;
+    printf("%d enqueued to queue\\n", item);
 }
 
-// Function to remove an element
+// Function to remove an item from queue
 int dequeue(Queue* queue) {
     if (isEmpty(queue)) {
-        printf("Queue Underflow\\n");
-        return -1;
+        printf("Queue is empty!\\n");
+        return INT_MIN;
     }
-    
-    int item = queue->items[queue->front];
-    
-    if (queue->front == queue->rear) {
-        // Last element being dequeued
-        queue->front = -1;
-        queue->rear = -1;
-    } else {
-        queue->front = (queue->front + 1) % MAX_SIZE;
-    }
-    
+    int item = queue->array[queue->front];
+    queue->front = (queue->front + 1) % queue->capacity;
+    queue->size = queue->size - 1;
+    printf("%d dequeued from queue\\n", item);
     return item;
 }
 
-// Function to get front element
-int peek(Queue* queue) {
+// Function to get front of queue
+int front(Queue* queue) {
     if (isEmpty(queue)) {
-        printf("Queue is empty\\n");
-        return -1;
+        printf("Queue is empty!\\n");
+        return INT_MIN;
     }
-    return queue->items[queue->front];
+    return queue->array[queue->front];
 }
 
-// Function to display the queue
-void display(Queue* queue) {
+// Function to get rear of queue
+int rear(Queue* queue) {
     if (isEmpty(queue)) {
-        printf("Queue is empty\\n");
-        return;
+        printf("Queue is empty!\\n");
+        return INT_MIN;
     }
-    
-    printf("Queue: ");
-    int i = queue->front;
-    do {
-        printf("%d ", queue->items[i]);
-        i = (i + 1) % MAX_SIZE;
-    } while (i != (queue->rear + 1) % MAX_SIZE);
-    printf("\\n");
+    return queue->array[queue->rear];
 }
 
 int main() {
-    Queue* queue = createQueue();
-    
-    printf("Is empty: %s\\n", isEmpty(queue) ? "true" : "false");
+    Queue* queue = createQueue(5);
     
     // Test enqueue
-    printf("\\nEnqueuing elements:\\n");
+    printf("\\nEnqueueing elements:\\n");
     enqueue(queue, 10);
-    display(queue);
-    
     enqueue(queue, 20);
-    display(queue);
-    
     enqueue(queue, 30);
-    display(queue);
-    
-    // Test peek
-    printf("\\nFront element: %d\\n", peek(queue));
     
     // Test dequeue
-    printf("\\nDequeuing elements:\\n");
-    printf("Dequeued: %d\\n", dequeue(queue));
-    display(queue);
+    printf("\\nDequeueing elements:\\n");
+    dequeue(queue);
     
-    printf("Front element: %d\\n", peek(queue));
-    printf("Is empty: %s\\n", isEmpty(queue) ? "true" : "false");
+    // Test front
+    printf("\\nFront element is %d\\n", front(queue));
     
-    // Test edge cases
-    printf("\\nTesting edge cases:\\n");
+    // Test enqueue more
+    printf("\\nEnqueueing more elements:\\n");
+    enqueue(queue, 40);
+    enqueue(queue, 50);
     
-    // Test overflow
-    printf("Trying to enqueue to full queue:\\n");
-    for(int i = 0; i < MAX_SIZE + 1; i++) {
-        enqueue(queue, i);
-    }
-    
-    // Test underflow
-    printf("\\nTrying to dequeue from empty queue:\\n");
-    for(int i = 0; i < MAX_SIZE + 1; i++) {
+    // Test dequeue all
+    printf("\\nDequeueing all elements:\\n");
+    while (!isEmpty(queue)) {
         dequeue(queue);
     }
     
+    // Free memory
+    free(queue->array);
     free(queue);
     return 0;
 }`
@@ -269,7 +226,7 @@ int main() {
         <div className="lg:col-span-2">
           <h1 className="text-3xl font-bold mb-2">Queue Implementation Lab</h1>
           <p className="text-gray-600 mb-6">
-            Practice implementing a queue data structure with its core operations.
+            Practice implementing a Queue with its core operations.
           </p>
 
           <Card className="mb-6">
@@ -278,30 +235,30 @@ int main() {
             </CardHeader>
             <CardContent>
               <ol className="list-decimal list-inside space-y-2">
-                <li>Implement the following queue operations:</li>
+                <li>Implement the following Queue operations:</li>
                 <ul className="list-disc list-inside ml-6 space-y-1">
                   <li>
-                    <code>createQueue()</code> - Initialize a new queue
+                    <code>createQueue(capacity)</code> - Create a new queue
                   </li>
                   <li>
-                    <code>enqueue(item)</code> - Add an element to the rear
+                    <code>enqueue(queue, item)</code> - Add an element
                   </li>
                   <li>
-                    <code>dequeue()</code> - Remove and return the front element
+                    <code>dequeue(queue)</code> - Remove an element
                   </li>
                   <li>
-                    <code>peek()</code> - Return the front element without removing
+                    <code>front(queue)</code> - Get front element
                   </li>
                   <li>
-                    <code>isEmpty()</code> - Check if queue is empty
+                    <code>isEmpty(queue)</code> - Check if empty
                   </li>
                 </ul>
                 <li>Handle edge cases:</li>
                 <ul className="list-disc list-inside ml-6 space-y-1">
-                  <li>Queue overflow (enqueuing to full queue)</li>
-                  <li>Queue underflow (dequeuing from empty queue)</li>
-                  <li>Memory management (allocation and deallocation)</li>
+                  <li>Empty queue operations</li>
+                  <li>Full queue operations</li>
                   <li>Circular array implementation</li>
+                  <li>Memory management</li>
                 </ul>
                 <li>Write test cases in main() to verify your implementation</li>
                 <li>Run the code to check if all operations work correctly</li>
@@ -354,7 +311,7 @@ int main() {
                 <Alert className="mt-4 bg-green-50 border-green-200">
                   <AlertTitle className="text-green-800">Success!</AlertTitle>
                   <AlertDescription className="text-green-700">
-                    Your queue implementation looks good! Try testing edge cases and different scenarios.
+                    Your Queue implementation looks good! Try testing edge cases and different scenarios.
                   </AlertDescription>
                 </Alert>
               )}
@@ -368,8 +325,9 @@ int main() {
                 <pre className="p-4 font-mono text-sm overflow-auto">{solutionCode}</pre>
               </div>
               <p className="mt-4 text-gray-600">
-                This solution demonstrates a complete queue implementation using a circular array.
-                Study how it handles the front and rear pointers, and manages overflow/underflow conditions.
+                This solution demonstrates a complete Queue implementation using a circular array
+                with proper memory management and handling of all edge cases. Study how it
+                maintains the FIFO property and handles queue overflow/underflow.
               </p>
             </TabsContent>
           </Tabs>
@@ -404,16 +362,16 @@ int main() {
             </CardHeader>
             <CardContent className="space-y-2">
               <p>
-                <span className="font-medium">Structure:</span> Use circular array implementation
+                <span className="font-medium">Structure:</span> Use circular array with front and rear pointers
               </p>
               <p>
-                <span className="font-medium">Enqueue:</span> Add at rear, update rear
+                <span className="font-medium">Enqueue:</span> Update rear pointer and handle overflow
               </p>
               <p>
-                <span className="font-medium">Dequeue:</span> Remove from front, update front
+                <span className="font-medium">Dequeue:</span> Update front pointer and handle underflow
               </p>
               <p>
-                <span className="font-medium">Memory:</span> Allocate in create, free when done
+                <span className="font-medium">Memory:</span> Free array and queue structure
               </p>
             </CardContent>
           </Card>
@@ -425,18 +383,18 @@ int main() {
             <CardContent>
               <ul className="space-y-2">
                 <li>
+                  <Link href="/topics/queues/circular" className="text-green-600 hover:underline">
+                    Try Circular Queue
+                  </Link>
+                </li>
+                <li>
                   <Link href="/topics/queues/priority" className="text-green-600 hover:underline">
                     Try Priority Queue
                   </Link>
                 </li>
                 <li>
-                  <Link href="/topics/queues/applications" className="text-green-600 hover:underline">
-                    Queue Applications
-                  </Link>
-                </li>
-                <li>
                   <Link href="/topics/trees" className="text-green-600 hover:underline">
-                    Explore Trees
+                    Implement BFS using Queue
                   </Link>
                 </li>
               </ul>

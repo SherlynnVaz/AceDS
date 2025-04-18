@@ -10,24 +10,21 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 
 export default function LinkedListLabPage() {
   const [code, setCode] = useState(`// Implement a Singly Linked List in C
-// Required functions: createNode(), insert(), delete(), search(), display()
+// Required functions: createNode(), insertAtBeginning(), insertAtEnd(), deleteNode(), printList()
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdbool.h>
 
 // Your implementation here
 
 int main() {
     // Test your implementation here
     // Example test cases:
-    // 1. Create an empty linked list
-    // 2. Insert elements: 10 at beginning, 20 at end, 30 after 10
-    // 3. Display list (should show: 10 -> 30 -> 20)
-    // 4. Delete element 30
-    // 5. Display list (should show: 10 -> 20)
-    // 6. Search for element 20 (should find it)
-    // 7. Search for element 30 (should not find it)
+    // 1. Create an empty list
+    // 2. Insert elements at beginning: 10, 20, 30
+    // 3. Insert elements at end: 40, 50
+    // 4. Delete node with value 20
+    // 5. Print the list
     return 0;
 }`)
   const [output, setOutput] = useState("")
@@ -44,35 +41,33 @@ int main() {
       let outputText = ""
 
       // Check if the code contains the required functions
-      const hasNode = code.includes("struct Node") || code.includes("typedef struct")
+      const hasNodeStruct = code.includes("struct Node") || code.includes("typedef struct")
       const hasCreateNode = code.includes("createNode")
-      const hasInsert = code.includes("insert")
-      const hasDelete = code.includes("delete")
-      const hasSearch = code.includes("search")
-      const hasDisplay = code.includes("display")
+      const hasInsertAtBeginning = code.includes("insertAtBeginning")
+      const hasInsertAtEnd = code.includes("insertAtEnd")
+      const hasDeleteNode = code.includes("deleteNode")
+      const hasPrintList = code.includes("printList")
 
-      if (!hasNode || !hasCreateNode || !hasInsert || !hasDelete || !hasSearch || !hasDisplay) {
-        outputText = "Error: Missing required linked list components.\nMake sure you have implemented:\n- Node structure\n- createNode()\n- insert()\n- delete()\n- search()\n- display()\n"
+      if (!hasNodeStruct || !hasCreateNode || !hasInsertAtBeginning || !hasInsertAtEnd || !hasDeleteNode || !hasPrintList) {
+        outputText = "Error: Missing required Linked List components.\nMake sure you have implemented:\n- Node structure\n- createNode()\n- insertAtBeginning()\n- insertAtEnd()\n- deleteNode()\n- printList()\n"
         setIsSuccess(false)
       } else {
         // Check if the implementation seems reasonable
-        const hasPointers = code.includes("->next") || code.includes("->data")
+        const hasPointers = code.includes("next")
         const hasMemoryAlloc = code.includes("malloc(") && code.includes("free(")
-        const hasNullCheck = code.includes("NULL") || code.includes("null")
         const hasTestCases = code.includes("printf") && code.includes("insert") && code.includes("delete")
 
-        if (hasPointers && hasMemoryAlloc && hasNullCheck && hasTestCases) {
+        if (hasPointers && hasMemoryAlloc && hasTestCases) {
           outputText = "Your implementation looks good! Make sure to test with different cases:\n"
           outputText += "1. Empty list operations\n"
-          outputText += "2. Insert at beginning, middle, end\n"
-          outputText += "3. Delete from beginning, middle, end\n"
-          outputText += "4. Search for existing and non-existing elements\n"
+          outputText += "2. Inserting at beginning and end\n"
+          outputText += "3. Deleting first, last, and middle nodes\n"
+          outputText += "4. Memory management (no leaks)\n"
           setIsSuccess(true)
         } else {
           outputText = "Implementation incomplete. Check if you have:\n"
-          outputText += "- Proper pointer handling\n"
-          outputText += "- Memory allocation/deallocation\n"
-          outputText += "- NULL pointer checks\n"
+          outputText += "- Next pointer in Node structure\n"
+          outputText += "- Proper memory management\n"
           outputText += "- Test cases for all operations\n"
           setIsSuccess(false)
         }
@@ -89,24 +84,21 @@ int main() {
 
   const resetCode = () => {
     setCode(`// Implement a Singly Linked List in C
-// Required functions: createNode(), insert(), delete(), search(), display()
+// Required functions: createNode(), insertAtBeginning(), insertAtEnd(), deleteNode(), printList()
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdbool.h>
 
 // Your implementation here
 
 int main() {
     // Test your implementation here
     // Example test cases:
-    // 1. Create an empty linked list
-    // 2. Insert elements: 10 at beginning, 20 at end, 30 after 10
-    // 3. Display list (should show: 10 -> 30 -> 20)
-    // 4. Delete element 30
-    // 5. Display list (should show: 10 -> 20)
-    // 6. Search for element 20 (should find it)
-    // 7. Search for element 30 (should not find it)
+    // 1. Create an empty list
+    // 2. Insert elements at beginning: 10, 20, 30
+    // 3. Insert elements at end: 40, 50
+    // 4. Delete node with value 20
+    // 5. Print the list
     return 0;
 }`)
     setOutput("")
@@ -115,7 +107,6 @@ int main() {
 
   const solutionCode = `#include <stdio.h>
 #include <stdlib.h>
-#include <stdbool.h>
 
 // Define the Node structure
 typedef struct Node {
@@ -124,27 +115,27 @@ typedef struct Node {
 } Node;
 
 // Function to create a new node
-Node* createNode(int data) {
+Node* createNode(int value) {
     Node* newNode = (Node*)malloc(sizeof(Node));
     if (newNode == NULL) {
         printf("Memory allocation failed!\\n");
         exit(1);
     }
-    newNode->data = data;
+    newNode->data = value;
     newNode->next = NULL;
     return newNode;
 }
 
 // Function to insert at beginning
-Node* insertAtBeginning(Node* head, int data) {
-    Node* newNode = createNode(data);
+Node* insertAtBeginning(Node* head, int value) {
+    Node* newNode = createNode(value);
     newNode->next = head;
     return newNode;
 }
 
 // Function to insert at end
-Node* insertAtEnd(Node* head, int data) {
-    Node* newNode = createNode(data);
+Node* insertAtEnd(Node* head, int value) {
+    Node* newNode = createNode(value);
     
     if (head == NULL) {
         return newNode;
@@ -158,85 +149,43 @@ Node* insertAtEnd(Node* head, int data) {
     return head;
 }
 
-// Function to insert after a node with given value
-Node* insertAfter(Node* head, int after, int data) {
-    Node* current = head;
-    
-    while (current != NULL && current->data != after) {
-        current = current->next;
-    }
-    
-    if (current == NULL) {
-        printf("Element %d not found\\n", after);
-        return head;
-    }
-    
-    Node* newNode = createNode(data);
-    newNode->next = current->next;
-    current->next = newNode;
-    return head;
-}
-
-// Function to delete a node with given value
-Node* delete(Node* head, int data) {
+// Function to delete a node
+Node* deleteNode(Node* head, int value) {
     if (head == NULL) {
-        printf("List is empty\\n");
         return NULL;
     }
     
-    if (head->data == data) {
+    if (head->data == value) {
         Node* temp = head->next;
         free(head);
         return temp;
     }
     
     Node* current = head;
-    while (current->next != NULL && current->next->data != data) {
+    while (current->next != NULL && current->next->data != value) {
         current = current->next;
     }
     
-    if (current->next == NULL) {
-        printf("Element %d not found\\n", data);
-        return head;
+    if (current->next != NULL) {
+        Node* temp = current->next;
+        current->next = current->next->next;
+        free(temp);
     }
     
-    Node* temp = current->next;
-    current->next = temp->next;
-    free(temp);
     return head;
 }
 
-// Function to search for an element
-bool search(Node* head, int data) {
+// Function to print the list
+void printList(Node* head) {
     Node* current = head;
     while (current != NULL) {
-        if (current->data == data) {
-            return true;
-        }
+        printf("%d -> ", current->data);
         current = current->next;
     }
-    return false;
+    printf("NULL\\n");
 }
 
-// Function to display the list
-void display(Node* head) {
-    if (head == NULL) {
-        printf("List is empty\\n");
-        return;
-    }
-    
-    Node* current = head;
-    while (current != NULL) {
-        printf("%d", current->data);
-        if (current->next != NULL) {
-            printf(" -> ");
-        }
-        current = current->next;
-    }
-    printf("\\n");
-}
-
-// Function to free the entire list
+// Function to free the list
 void freeList(Node* head) {
     Node* current = head;
     while (current != NULL) {
@@ -249,38 +198,25 @@ void freeList(Node* head) {
 int main() {
     Node* head = NULL;
     
-    printf("Creating linked list...\\n");
-    
-    // Test insertions
-    printf("\\nInserting elements:\\n");
+    // Test insertion at beginning
+    printf("Inserting at beginning: 10, 20, 30\\n");
+    head = insertAtBeginning(head, 30);
+    head = insertAtBeginning(head, 20);
     head = insertAtBeginning(head, 10);
-    display(head);
+    printList(head);
     
-    head = insertAtEnd(head, 20);
-    display(head);
-    
-    head = insertAfter(head, 10, 30);
-    display(head);
-    
-    // Test search
-    printf("\\nSearching for elements:\\n");
-    printf("Search 20: %s\\n", search(head, 20) ? "Found" : "Not found");
-    printf("Search 40: %s\\n", search(head, 40) ? "Found" : "Not found");
+    // Test insertion at end
+    printf("\\nInserting at end: 40, 50\\n");
+    head = insertAtEnd(head, 40);
+    head = insertAtEnd(head, 50);
+    printList(head);
     
     // Test deletion
-    printf("\\nDeleting element 30:\\n");
-    head = delete(head, 30);
-    display(head);
+    printf("\\nDeleting node with value 20\\n");
+    head = deleteNode(head, 20);
+    printList(head);
     
-    // Test edge cases
-    printf("\\nTesting edge cases:\\n");
-    printf("Trying to insert after non-existent element:\\n");
-    head = insertAfter(head, 40, 50);
-    
-    printf("\\nTrying to delete non-existent element:\\n");
-    head = delete(head, 40);
-    
-    // Clean up
+    // Free the list
     freeList(head);
     return 0;
 }`
@@ -299,7 +235,7 @@ int main() {
         <div className="lg:col-span-2">
           <h1 className="text-3xl font-bold mb-2">Linked List Implementation Lab</h1>
           <p className="text-gray-600 mb-6">
-            Practice implementing a singly linked list with its core operations.
+            Practice implementing a Singly Linked List with its core operations.
           </p>
 
           <Card className="mb-6">
@@ -308,30 +244,30 @@ int main() {
             </CardHeader>
             <CardContent>
               <ol className="list-decimal list-inside space-y-2">
-                <li>Implement the following linked list operations:</li>
+                <li>Implement the following Linked List operations:</li>
                 <ul className="list-disc list-inside ml-6 space-y-1">
                   <li>
-                    <code>createNode(data)</code> - Create a new node with given data
+                    <code>createNode(value)</code> - Create a new node
                   </li>
                   <li>
-                    <code>insert()</code> - Insert a node (at beginning/end/after)
+                    <code>insertAtBeginning(head, value)</code> - Insert at start
                   </li>
                   <li>
-                    <code>delete(data)</code> - Delete node with given data
+                    <code>insertAtEnd(head, value)</code> - Insert at end
                   </li>
                   <li>
-                    <code>search(data)</code> - Search for a node with given data
+                    <code>deleteNode(head, value)</code> - Delete a node
                   </li>
                   <li>
-                    <code>display()</code> - Display all nodes in the list
+                    <code>printList(head)</code> - Print the list
                   </li>
                 </ul>
                 <li>Handle edge cases:</li>
                 <ul className="list-disc list-inside ml-6 space-y-1">
                   <li>Empty list operations</li>
-                  <li>Memory allocation failures</li>
-                  <li>NULL pointer checks</li>
-                  <li>Element not found (delete/search)</li>
+                  <li>Inserting at beginning and end</li>
+                  <li>Deleting first, last, and middle nodes</li>
+                  <li>Memory management (allocation and deallocation)</li>
                 </ul>
                 <li>Write test cases in main() to verify your implementation</li>
                 <li>Run the code to check if all operations work correctly</li>
@@ -384,7 +320,7 @@ int main() {
                 <Alert className="mt-4 bg-green-50 border-green-200">
                   <AlertTitle className="text-green-800">Success!</AlertTitle>
                   <AlertDescription className="text-green-700">
-                    Your linked list implementation looks good! Try testing edge cases and different scenarios.
+                    Your Linked List implementation looks good! Try testing edge cases and different scenarios.
                   </AlertDescription>
                 </Alert>
               )}
@@ -398,8 +334,8 @@ int main() {
                 <pre className="p-4 font-mono text-sm overflow-auto">{solutionCode}</pre>
               </div>
               <p className="mt-4 text-gray-600">
-                This solution demonstrates a complete singly linked list implementation with proper memory management,
-                pointer handling, and error checking. Study how it maintains the list structure and handles edge cases.
+                This solution demonstrates a complete Singly Linked List implementation with proper memory management
+                and handling of all edge cases. Study how it handles node insertion, deletion, and memory cleanup.
               </p>
             </TabsContent>
           </Tabs>
@@ -408,7 +344,7 @@ int main() {
         <div className="space-y-6">
           <Card>
             <CardHeader className="pb-2">
-              <CardTitle>List Visualization</CardTitle>
+              <CardTitle>Linked List Visualization</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="bg-gray-50 p-4 rounded-lg">
@@ -437,13 +373,13 @@ int main() {
                 <span className="font-medium">Structure:</span> Node with data and next pointer
               </p>
               <p>
-                <span className="font-medium">Insert:</span> Update next pointers carefully
+                <span className="font-medium">Insert:</span> Handle empty list and non-empty list cases
               </p>
               <p>
-                <span className="font-medium">Delete:</span> Free memory after unlinking
+                <span className="font-medium">Delete:</span> Handle first node, last node, and middle node cases
               </p>
               <p>
-                <span className="font-medium">Memory:</span> Always check malloc results
+                <span className="font-medium">Memory:</span> Free nodes when deleting and at program end
               </p>
             </CardContent>
           </Card>
@@ -460,13 +396,13 @@ int main() {
                   </Link>
                 </li>
                 <li>
-                  <Link href="/topics/stacks" className="text-green-600 hover:underline">
-                    Implement Stack using List
+                  <Link href="/topics/linked-lists/circular" className="text-green-600 hover:underline">
+                    Try Circular Linked Lists
                   </Link>
                 </li>
                 <li>
-                  <Link href="/topics/queues" className="text-green-600 hover:underline">
-                    Explore Queues
+                  <Link href="/topics/stacks" className="text-green-600 hover:underline">
+                    Implement Stack using Linked List
                   </Link>
                 </li>
               </ul>
