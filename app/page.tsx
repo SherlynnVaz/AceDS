@@ -6,7 +6,7 @@ export default function LandingPage() {
   return (
     <div className="flex flex-col min-h-screen">
       {/* Hero Section */}
-      <header className="bg-gradient-to-r from-green-600 to-teal-600 text-white">
+      <header className="bg-gradient-to-r from-blue-600 to-blue-800 text-white">
         <div className="container mx-auto px-4 py-16 md:py-24">
           <div className="max-w-3xl">
             <h1 className="text-4xl md:text-6xl font-bold mb-6">Master Data Structures Through Interactive Learning</h1>
@@ -15,10 +15,10 @@ export default function LandingPage() {
               hands-on coding exercises and real-time feedback.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
-              <Button asChild size="lg" className="bg-white text-green-600 hover:bg-gray-100">
+              <Button asChild size="lg" className="bg-white text-blue-600 hover:bg-gray-100">
                 <Link href="/register">Get Started</Link>
               </Button>
-              <Button asChild size="lg" className="bg-white text-green-600 hover:bg-gray-100">
+              <Button asChild size="lg" className="bg-white text-blue-600 hover:bg-gray-100">
                 <Link href="/topics">Explore Topics</Link>
               </Button>
             </div>
@@ -27,13 +27,13 @@ export default function LandingPage() {
       </header>
 
       {/* Features Section */}
-      <section className="py-16 bg-white">
+      <section className="py-16 bg-gray-50">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl font-bold text-center mb-12">Why Learn With Us?</h2>
           <div className="grid md:grid-cols-3 gap-8">
-            <div className="bg-gray-50 p-6 rounded-lg">
-              <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mb-4">
-                <BookOpen className="w-6 h-6 text-green-600" />
+            <div className="bg-white p-6 rounded-lg shadow-sm">
+              <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mb-4">
+                <BookOpen className="w-6 h-6 text-blue-600" />
               </div>
               <h3 className="text-xl font-semibold mb-2">Interactive Learning</h3>
               <p className="text-gray-600">
@@ -41,9 +41,9 @@ export default function LandingPage() {
                 students.
               </p>
             </div>
-            <div className="bg-gray-50 p-6 rounded-lg">
-              <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mb-4">
-                <Code className="w-6 h-6 text-green-600" />
+            <div className="bg-white p-6 rounded-lg shadow-sm">
+              <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mb-4">
+                <Code className="w-6 h-6 text-blue-600" />
               </div>
               <h3 className="text-xl font-semibold mb-2">Virtual Lab</h3>
               <p className="text-gray-600">
@@ -51,9 +51,9 @@ export default function LandingPage() {
                 real-time.
               </p>
             </div>
-            <div className="bg-gray-50 p-6 rounded-lg">
-              <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mb-4">
-                <Users className="w-6 h-6 text-green-600" />
+            <div className="bg-white p-6 rounded-lg shadow-sm">
+              <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mb-4">
+                <Users className="w-6 h-6 text-blue-600" />
               </div>
               <h3 className="text-xl font-semibold mb-2">Community Support</h3>
               <p className="text-gray-600">
@@ -66,14 +66,14 @@ export default function LandingPage() {
       </section>
 
       {/* Topics Preview */}
-      <section className="py-16 bg-gray-50">
+      <section className="py-16 bg-white">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl font-bold text-center mb-12">Data Structure Topics</h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {["Arrays", "Linked Lists", "Stacks", "Queues", "Trees", "Graphs"].map((topic, index) => (
               <div
                 key={index}
-                className="border bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow"
+                className="border bg-gray-50 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow"
               >
                 <div className="p-6">
                   <h3 className="text-xl font-semibold mb-2">{topic}</h3>
@@ -83,7 +83,7 @@ export default function LandingPage() {
                   </p>
                   <Link
                     href={`/topics/${topic.toLowerCase().replace(" ", "-")}`}
-                    className="text-green-600 font-medium inline-flex items-center"
+                    className="text-blue-600 font-medium inline-flex items-center"
                   >
                     Explore <ArrowRight className="ml-1 w-4 h-4" />
                   </Link>

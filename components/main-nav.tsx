@@ -39,18 +39,18 @@ export function MainNav() {
   }
 
   return (
-    <div className="border-b">
+    <div className="border-b bg-white">
       <div className="flex h-16 items-center px-4 container mx-auto">
         <Link href="/" className="font-bold text-xl flex items-center mr-8">
-          <BookOpen className="h-6 w-6 mr-2 text-green-600" />
+          <BookOpen className="h-6 w-6 mr-2 text-blue-600" />
           <span>AceDS</span>
         </Link>
         <nav className="flex items-center space-x-4 lg:space-x-6 mx-6">
           <Link
             href="/"
             className={cn(
-              "text-sm font-medium transition-colors hover:text-primary",
-              pathname === "/" ? "text-primary" : "text-muted-foreground",
+              "text-sm font-medium transition-colors hover:text-blue-600",
+              pathname === "/" ? "text-blue-600" : "text-gray-600",
             )}
           >
             <div className="flex items-center">
@@ -61,8 +61,8 @@ export function MainNav() {
           <Link
             href="/topics"
             className={cn(
-              "text-sm font-medium transition-colors hover:text-primary",
-              pathname.startsWith("/topics") ? "text-primary" : "text-muted-foreground",
+              "text-sm font-medium transition-colors hover:text-blue-600",
+              pathname.startsWith("/topics") ? "text-blue-600" : "text-gray-600",
             )}
           >
             <div className="flex items-center">
@@ -74,23 +74,11 @@ export function MainNav() {
         <div className="ml-auto flex items-center space-x-4">
           {isLoggedIn ? (
             <>
-              <Link
-                href="/dashboard"
-                className={cn(
-                  "text-sm font-medium transition-colors hover:text-primary",
-                  pathname === "/dashboard" ? "text-primary" : "text-muted-foreground",
-                )}
-              >
-                <div className="flex items-center">
-                  <User className="h-4 w-4 mr-1" />
-                  <span>{user?.name || "Dashboard"}</span>
-                </div>
-              </Link>
               <Button
                 variant="ghost"
                 size="sm"
+                className="text-gray-600 hover:text-blue-600"
                 onClick={handleLogout}
-                className="text-red-600 hover:text-red-700 hover:bg-red-50"
               >
                 <LogOut className="h-4 w-4 mr-1" />
                 Logout
@@ -98,14 +86,15 @@ export function MainNav() {
             </>
           ) : (
             <>
-              <Link href="/login">
-                <Button variant="ghost" size="sm">
+              <Button asChild variant="ghost" size="sm">
+                <Link href="/login" className="text-gray-600 hover:text-blue-600">
+                  <User className="h-4 w-4 mr-1" />
                   Login
-                </Button>
-              </Link>
-              <Link href="/register">
-                <Button size="sm">Register</Button>
-              </Link>
+                </Link>
+              </Button>
+              <Button asChild size="sm">
+                <Link href="/register">Register</Link>
+              </Button>
             </>
           )}
         </div>
