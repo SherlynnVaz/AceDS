@@ -53,30 +53,6 @@ export default function TopicsPage() {
       icon: <BookOpen className="h-5 w-5" />,
       statusIcon: <BookOpen className="h-5 w-5 text-gray-400" />,
     },
-    {
-      id: "hash-tables",
-      title: "Hash Tables",
-      description: "Learn about hash functions, collision resolution, and applications.",
-      status: "not-started",
-      icon: <BookOpen className="h-5 w-5" />,
-      statusIcon: <BookOpen className="h-5 w-5 text-gray-400" />,
-    },
-    {
-      id: "heaps",
-      title: "Heaps",
-      description: "Understand heap data structure, operations, and priority queues.",
-      status: "not-started",
-      icon: <BookOpen className="h-5 w-5" />,
-      statusIcon: <BookOpen className="h-5 w-5 text-gray-400" />,
-    },
-    {
-      id: "sorting",
-      title: "Sorting Algorithms",
-      description: "Explore various sorting algorithms and their time and space complexities.",
-      status: "not-started",
-      icon: <BookOpen className="h-5 w-5" />,
-      statusIcon: <BookOpen className="h-5 w-5 text-gray-400" />,
-    },
   ]
 
   return (
