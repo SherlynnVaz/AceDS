@@ -18,7 +18,7 @@ export default function LandingPage() {
               <Button asChild size="lg" className="bg-white text-green-600 hover:bg-gray-100">
                 <Link href="/register">Get Started</Link>
               </Button>
-              <Button asChild size="lg" variant="outline" className="border-white text-white hover:bg-white/10">
+              <Button asChild size="lg" className="bg-white text-green-600 hover:bg-gray-100">
                 <Link href="/topics">Explore Topics</Link>
               </Button>
             </div>
