@@ -3,354 +3,320 @@
 import { useState } from "react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
+import { Card } from "@/components/ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { ArrowLeft, ArrowRight, BookOpen, Code, Play } from "lucide-react"
+import { ArrowLeft } from "lucide-react"
 
-export default function ArraysTopicPage() {
+export default function ArraysPage() {
   const [activeTab, setActiveTab] = useState("overview")
 
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="flex items-center gap-2 mb-6">
-        <Link href="/dashboard">
+        <Link href="/topics">
           <Button variant="outline" size="sm">
-            <ArrowLeft className="h-4 w-4 mr-2" /> Back to Dashboard
+            <ArrowLeft className="h-4 w-4 mr-2" /> Back to Topics
           </Button>
         </Link>
       </div>
 
-      <div className="flex flex-col md:flex-row gap-8">
-        {/* Main Content */}
-        <div className="flex-1">
-          <h1 className="text-3xl font-bold mb-2">Arrays</h1>
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div className="lg:col-span-2">
+          <h1 className="text-3xl font-bold mb-2">Array Data Structure</h1>
           <p className="text-gray-600 mb-6">
-            Learn about arrays, their operations, and common algorithms.
+            An Array is a linear data structure that stores elements in contiguous memory locations.
+            It provides constant-time access to elements using their indices.
           </p>
 
           <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-            <TabsList className="grid grid-cols-3 mb-8">
-              <TabsTrigger value="overview" className="flex items-center gap-2">
-                <BookOpen className="h-4 w-4" /> Overview
-              </TabsTrigger>
-              <TabsTrigger value="implementation" className="flex items-center gap-2">
-                <Code className="h-4 w-4" /> Implementation
-              </TabsTrigger>
-              <TabsTrigger value="applications" className="flex items-center gap-2">
-                <Play className="h-4 w-4" /> Applications
-              </TabsTrigger>
+            <TabsList className="grid w-full grid-cols-3">
+              <TabsTrigger value="overview">Overview</TabsTrigger>
+              <TabsTrigger value="implementation">Implementation</TabsTrigger>
+              <TabsTrigger value="applications">Applications</TabsTrigger>
             </TabsList>
 
-            <TabsContent value="overview" className="space-y-6">
-              <div className="prose max-w-none">
-                <h2>What is an Array?</h2>
-                <p>
-                  An array is a linear data structure that collects elements of the same data type and stores them in contiguous memory locations. 
-                  Arrays are one of the most fundamental and widely used data structures in computer programming.
-                </p>
-
-                <h3>Key Characteristics</h3>
-                <ul>
-                  <li>
-                    <strong>Fixed Size:</strong> Arrays have a fixed size that needs to be specified during declaration (in most languages)
-                  </li>
-                  <li>
-                    <strong>Random Access:</strong> Elements can be accessed directly using their index
-                  </li>
-                  <li>
-                    <strong>Homogeneous Elements:</strong> All elements must be of the same data type
-                  </li>
-                  <li>
-                    <strong>Contiguous Memory:</strong> Elements are stored in consecutive memory locations
-                  </li>
+            <TabsContent value="overview" className="space-y-4">
+              <h2 className="text-2xl font-bold">Array Overview</h2>
+              
+              <div className="space-y-4">
+                <h3 className="text-xl font-semibold">Key Characteristics</h3>
+                <ul className="list-disc list-inside space-y-2">
+                  <li>Fixed size (static arrays) or variable size (dynamic arrays)</li>
+                  <li>Contiguous memory allocation</li>
+                  <li>Random access using indices</li>
+                  <li>Homogeneous elements (same data type)</li>
+                  <li>Zero-based or one-based indexing</li>
                 </ul>
 
-                <h3>Basic Operations</h3>
-                <ul>
-                  <li>
-                    <strong>Access:</strong> O(1) - Direct access using index
-                  </li>
-                  <li>
-                    <strong>Search:</strong> O(n) - Linear search in unsorted array
-                  </li>
-                  <li>
-                    <strong>Insert:</strong> O(n) - Worst case when inserting at beginning
-                  </li>
-                  <li>
-                    <strong>Delete:</strong> O(n) - Worst case when deleting from beginning
-                  </li>
+                <h3 className="text-xl font-semibold">Types of Arrays</h3>
+                <ul className="list-disc list-inside space-y-2">
+                  <li>One-dimensional Arrays (Linear Arrays)</li>
+                  <li>Multi-dimensional Arrays (2D, 3D, etc.)</li>
+                  <li>Dynamic Arrays (e.g., C++ vectors)</li>
+                  <li>Jagged Arrays (Arrays of Arrays)</li>
                 </ul>
 
-                <h3>Visual Representation</h3>
-                <div className="bg-gray-100 p-4 rounded-lg mb-4">
-                  <div className="grid grid-cols-6 gap-2">
-                    {[10, 20, 30, 40, 50, 60].map((item, index) => (
-                      <div
-                        key={index}
-                        className="border-2 border-gray-300 p-4 text-center bg-white"
-                      >
-                        {item}
-                        <div className="text-xs text-gray-500">Index: {index}</div>
-                      </div>
-                    ))}
-                  </div>
+                <h3 className="text-xl font-semibold">Time Complexity</h3>
+                <div className="overflow-x-auto">
+                  <table className="min-w-full border-collapse border border-gray-300">
+                    <thead>
+                      <tr className="bg-gray-100">
+                        <th className="border border-gray-300 px-4 py-2">Operation</th>
+                        <th className="border border-gray-300 px-4 py-2">Static Array</th>
+                        <th className="border border-gray-300 px-4 py-2">Dynamic Array</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td className="border border-gray-300 px-4 py-2">Access</td>
+                        <td className="border border-gray-300 px-4 py-2">O(1)</td>
+                        <td className="border border-gray-300 px-4 py-2">O(1)</td>
+                      </tr>
+                      <tr>
+                        <td className="border border-gray-300 px-4 py-2">Search</td>
+                        <td className="border border-gray-300 px-4 py-2">O(n)</td>
+                        <td className="border border-gray-300 px-4 py-2">O(n)</td>
+                      </tr>
+                      <tr>
+                        <td className="border border-gray-300 px-4 py-2">Insertion</td>
+                        <td className="border border-gray-300 px-4 py-2">O(n)</td>
+                        <td className="border border-gray-300 px-4 py-2">O(1) amortized</td>
+                      </tr>
+                      <tr>
+                        <td className="border border-gray-300 px-4 py-2">Deletion</td>
+                        <td className="border border-gray-300 px-4 py-2">O(n)</td>
+                        <td className="border border-gray-300 px-4 py-2">O(n)</td>
+                      </tr>
+                    </tbody>
+                  </table>
                 </div>
               </div>
-
-              <div className="flex justify-between mt-8">
-                <Button variant="outline" disabled>
-                  <ArrowLeft className="h-4 w-4 mr-2" /> Previous
-                </Button>
-                <Button onClick={() => setActiveTab("implementation")}>
-                  Next <ArrowRight className="h-4 w-4 ml-2" />
-                </Button>
-              </div>
             </TabsContent>
 
-            <TabsContent value="implementation" className="space-y-6">
-              <div className="prose max-w-none">
-                <h2>Array Implementation</h2>
-                <p>Arrays can be implemented in various ways depending on the programming language. Here are some common implementations:</p>
-
-                <h3>Static Array Implementation</h3>
+            <TabsContent value="implementation" className="space-y-4">
+              <h2 className="text-2xl font-bold">Array Implementation</h2>
+              
+              <div className="space-y-4">
+                <h3 className="text-xl font-semibold">Static Array</h3>
                 <pre className="bg-gray-100 p-4 rounded-lg overflow-x-auto">
-                  <code className="language-javascript">{`// C++ implementation
-int arr[5]; // Static array of size 5
+{`// Static array implementation in C
+#include <stdio.h>
+
+#define MAX_SIZE 100
+
+typedef struct {
+    int array[MAX_SIZE];
+    int size;
+} StaticArray;
 
 // Initialize array
-for(int i = 0; i < 5; i++) {
-    arr[i] = i * 10;
+void initArray(StaticArray* arr) {
+    arr->size = 0;
 }
 
-// Access elements
-int firstElement = arr[0];
-int lastElement = arr[4];
-
-// Modify elements
-arr[2] = 25;`}</code>
+// Insert element at index
+int insert(StaticArray* arr, int index, int element) {
+    if (arr->size >= MAX_SIZE || index < 0 || index > arr->size) {
+        return 0;  // Error
+    }
+    
+    // Shift elements to make space
+    for (int i = arr->size; i > index; i--) {
+        arr->array[i] = arr->array[i-1];
+    }
+    
+    arr->array[index] = element;
+    arr->size++;
+    return 1;  // Success
+}`}
                 </pre>
 
-                <h3>Dynamic Array Implementation</h3>
+                <h3 className="text-xl font-semibold">Dynamic Array</h3>
                 <pre className="bg-gray-100 p-4 rounded-lg overflow-x-auto">
-                  <code className="language-javascript">{`// C++ implementation using vectors
-#include <vector>
+{`// Dynamic array implementation in C
+#include <stdio.h>
+#include <stdlib.h>
 
-vector<int> arr; // Dynamic array
+typedef struct {
+    int* array;
+    int size;
+    int capacity;
+} DynamicArray;
 
-// Add elements
-arr.push_back(10);
-arr.push_back(20);
-arr.push_back(30);
+// Initialize dynamic array
+DynamicArray* createArray(int initialCapacity) {
+    DynamicArray* arr = (DynamicArray*)malloc(sizeof(DynamicArray));
+    arr->array = (int*)malloc(initialCapacity * sizeof(int));
+    arr->size = 0;
+    arr->capacity = initialCapacity;
+    return arr;
+}
 
-// Remove last element
-arr.pop_back();
-
-// Insert at position
-arr.insert(arr.begin() + 1, 15);
-
-// Remove from position
-arr.erase(arr.begin() + 1);
-
-// Get size
-int size = arr.size();`}</code>
+// Resize array when needed
+void resize(DynamicArray* arr) {
+    int newCapacity = arr->capacity * 2;
+    int* newArray = (int*)malloc(newCapacity * sizeof(int));
+    
+    // Copy elements to new array
+    for (int i = 0; i < arr->size; i++) {
+        newArray[i] = arr->array[i];
+    }
+    
+    free(arr->array);
+    arr->array = newArray;
+    arr->capacity = newCapacity;
+}`}
                 </pre>
 
-                <h3>Common Array Operations</h3>
-                <pre className="bg-gray-100 p-4 rounded-lg overflow-x-auto">
-                  <code className="language-javascript">{`class ArrayOperations {
-    // Linear Search
-    int linearSearch(int arr[], int n, int key) {
-        for(int i = 0; i < n; i++) {
-            if(arr[i] == key)
-                return i;
+                <h3 className="text-xl font-semibold">Common Operations</h3>
+                <div className="space-y-2">
+                  <h4 className="font-semibold">Search Operation</h4>
+                  <pre className="bg-gray-100 p-4 rounded-lg overflow-x-auto">
+{`// Linear search in array
+int search(int arr[], int size, int key) {
+    for (int i = 0; i < size; i++) {
+        if (arr[i] == key) {
+            return i;  // Found at index i
         }
-        return -1;
     }
+    return -1;  // Not found
+}`}
+                  </pre>
 
-    // Binary Search (for sorted arrays)
-    int binarySearch(int arr[], int left, int right, int key) {
-        while(left <= right) {
-            int mid = left + (right - left) / 2;
-            
-            if(arr[mid] == key)
-                return mid;
-            
-            if(arr[mid] < key)
-                left = mid + 1;
-            else
-                right = mid - 1;
-        }
-        return -1;
-    }
-
-    // Insertion at specific position
-    void insert(int arr[], int& n, int pos, int value) {
-        for(int i = n; i > pos; i--)
-            arr[i] = arr[i-1];
-        arr[pos] = value;
-        n++;
-    }
-
-    // Deletion from specific position
-    void remove(int arr[], int& n, int pos) {
-        for(int i = pos; i < n-1; i++)
-            arr[i] = arr[i+1];
-        n--;
-    }
-}`}</code>
-                </pre>
-              </div>
-
-              <div className="flex justify-between mt-8">
-                <Button variant="outline" onClick={() => setActiveTab("overview")}>
-                  <ArrowLeft className="h-4 w-4 mr-2" /> Previous
-                </Button>
-                <Button onClick={() => setActiveTab("applications")}>
-                  Next <ArrowRight className="h-4 w-4 ml-2" />
-                </Button>
-              </div>
-            </TabsContent>
-
-            <TabsContent value="applications" className="space-y-6">
-              <div className="prose max-w-none">
-                <h2>Applications of Arrays</h2>
-                <p>
-                  Arrays are one of the most versatile data structures and are used in numerous applications. Here are some common use cases:
-                </p>
-
-                <h3>1. Data Storage and Management</h3>
-                <ul>
-                  <li>Storing and managing collections of similar data</li>
-                  <li>Database record management</li>
-                  <li>Memory allocation in programming languages</li>
-                </ul>
-
-                <h3>2. Algorithm Implementation</h3>
-                <ul>
-                  <li>Sorting algorithms (Bubble Sort, Quick Sort, etc.)</li>
-                  <li>Searching algorithms (Linear Search, Binary Search)</li>
-                  <li>Dynamic Programming solutions</li>
-                </ul>
-
-                <h3>Example: Array Sorting</h3>
-                <pre className="bg-gray-100 p-4 rounded-lg overflow-x-auto">
-                  <code className="language-javascript">{`// Bubble Sort Implementation
-void bubbleSort(int arr[], int n) {
-    for(int i = 0; i < n-1; i++) {
-        for(int j = 0; j < n-i-1; j++) {
-            if(arr[j] > arr[j+1]) {
+                  <h4 className="font-semibold">Sort Operation</h4>
+                  <pre className="bg-gray-100 p-4 rounded-lg overflow-x-auto">
+{`// Bubble sort implementation
+void bubbleSort(int arr[], int size) {
+    for (int i = 0; i < size - 1; i++) {
+        for (int j = 0; j < size - i - 1; j++) {
+            if (arr[j] > arr[j + 1]) {
                 // Swap elements
                 int temp = arr[j];
-                arr[j] = arr[j+1];
-                arr[j+1] = temp;
+                arr[j] = arr[j + 1];
+                arr[j + 1] = temp;
             }
         }
     }
-}
+}`}
+                  </pre>
+                </div>
+              </div>
+            </TabsContent>
 
-// Usage Example
-int arr[] = {64, 34, 25, 12, 22, 11, 90};
-int n = sizeof(arr)/sizeof(arr[0]);
-bubbleSort(arr, n);`}</code>
-                </pre>
+            <TabsContent value="applications" className="space-y-4">
+              <h2 className="text-2xl font-bold">Array Applications</h2>
+              
+              <div className="space-y-4">
+                <h3 className="text-xl font-semibold">Real-world Applications</h3>
+                <ul className="list-disc list-inside space-y-2">
+                  <li>Image Processing (2D Arrays)</li>
+                  <li>Database Management Systems</li>
+                  <li>Spreadsheet Applications</li>
+                  <li>Matrix Operations</li>
+                  <li>Memory Management</li>
+                  <li>Hash Tables (Array-based)</li>
+                </ul>
 
-                <h3>3. Matrix Operations</h3>
+                <h3 className="text-xl font-semibold">Example: Matrix Addition</h3>
                 <pre className="bg-gray-100 p-4 rounded-lg overflow-x-auto">
-                  <code className="language-javascript">{`// Matrix Addition
+{`// Matrix addition using 2D arrays
 void matrixAdd(int A[][100], int B[][100], int C[][100], int rows, int cols) {
-    for(int i = 0; i < rows; i++) {
-        for(int j = 0; j < cols; j++) {
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < cols; j++) {
             C[i][j] = A[i][j] + B[i][j];
         }
     }
-}`}</code>
-                </pre>
-              </div>
+}
 
-              <div className="flex justify-between mt-8">
-                <Button variant="outline" onClick={() => setActiveTab("implementation")}>
-                  <ArrowLeft className="h-4 w-4 mr-2" /> Previous
-                </Button>
-                <Button asChild className="bg-green-600 hover:bg-green-700">
-                  <Link href="/topics/arrays/lab">
-                    Try It Yourself <ArrowRight className="h-4 w-4 ml-2" />
-                  </Link>
-                </Button>
+// Example usage:
+int main() {
+    int A[100][100], B[100][100], C[100][100];
+    int rows = 3, cols = 3;
+    
+    // Initialize matrices A and B
+    // ... initialization code ...
+    
+    // Perform matrix addition
+    matrixAdd(A, B, C, rows, cols);
+    
+    // Print result matrix C
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < cols; j++) {
+            printf("%d ", C[i][j]);
+        }
+        printf("\\n");
+    }
+    
+    return 0;
+}`}
+                </pre>
               </div>
             </TabsContent>
           </Tabs>
         </div>
 
-        {/* Sidebar */}
-        <div className="w-full md:w-80 space-y-6">
-          <Card>
-            <CardContent className="p-4">
-              <h3 className="font-semibold mb-2">Learning Progress</h3>
-              <div className="space-y-2">
-                <div className="flex justify-between text-sm">
-                  <span>Overview</span>
+        <div className="space-y-6">
+          <Card className="p-6">
+            <h3 className="text-xl font-bold mb-4">Learning Progress</h3>
+            <div className="space-y-4">
+              <div>
+                <div className="flex justify-between mb-2">
+                  <span>Array Basics</span>
                   <span className="text-green-600">Completed</span>
                 </div>
-                <div className="flex justify-between text-sm">
-                  <span>Implementation</span>
-                  <span className="text-amber-500">In Progress</span>
-                </div>
-                <div className="flex justify-between text-sm">
-                  <span>Applications</span>
-                  <span className="text-gray-400">Not Started</span>
-                </div>
-                <div className="flex justify-between text-sm">
-                  <span>Practice Lab</span>
-                  <span className="text-gray-400">Not Started</span>
+                <div className="w-full bg-gray-200 rounded-full h-2">
+                  <div className="bg-green-600 h-2 rounded-full" style={{ width: "100%" }}></div>
                 </div>
               </div>
-            </CardContent>
+              <div>
+                <div className="flex justify-between mb-2">
+                  <span>Implementation</span>
+                  <span className="text-yellow-600">In Progress</span>
+                </div>
+                <div className="w-full bg-gray-200 rounded-full h-2">
+                  <div className="bg-yellow-600 h-2 rounded-full" style={{ width: "60%" }}></div>
+                </div>
+              </div>
+              <div>
+                <div className="flex justify-between mb-2">
+                  <span>Advanced Topics</span>
+                  <span className="text-gray-600">Not Started</span>
+                </div>
+                <div className="w-full bg-gray-200 rounded-full h-2">
+                  <div className="bg-gray-600 h-2 rounded-full" style={{ width: "0%" }}></div>
+                </div>
+              </div>
+            </div>
           </Card>
 
-          <Card>
-            <CardContent className="p-4">
-              <h3 className="font-semibold mb-2">Related Topics</h3>
-              <ul className="space-y-2">
-                <li>
-                  <Link href="/topics/linked-lists" className="text-green-600 hover:underline">
-                    Linked Lists
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/topics/sorting" className="text-green-600 hover:underline">
-                    Sorting Algorithms
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/topics/searching" className="text-green-600 hover:underline">
-                    Searching Algorithms
-                  </Link>
-                </li>
-              </ul>
-            </CardContent>
+          <Card className="p-6">
+            <h3 className="text-xl font-bold mb-4">Related Topics</h3>
+            <ul className="space-y-2">
+              <li>
+                <Link href="/topics/linked-lists" className="text-blue-600 hover:underline">
+                  Linked Lists
+                </Link>
+              </li>
+              <li>
+                <Link href="/topics/stacks" className="text-blue-600 hover:underline">
+                  Stacks
+                </Link>
+              </li>
+              <li>
+                <Link href="/topics/queues" className="text-blue-600 hover:underline">
+                  Queues
+                </Link>
+              </li>
+            </ul>
           </Card>
 
-          <Card>
-            <CardContent className="p-4">
-              <h3 className="font-semibold mb-2">Resources</h3>
-              <ul className="space-y-2">
-                <li>
-                  <a href="#" className="text-green-600 hover:underline flex items-center">
-                    <BookOpen className="h-4 w-4 mr-2" /> Array Visualization
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="text-green-600 hover:underline flex items-center">
-                    <Code className="h-4 w-4 mr-2" /> Practice Problems
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="text-green-600 hover:underline flex items-center">
-                    <Play className="h-4 w-4 mr-2" /> Video Tutorial
-                  </a>
-                </li>
-              </ul>
-            </CardContent>
+          <Card className="p-6">
+            <h3 className="text-xl font-bold mb-4">Practice</h3>
+            <Link href="/topics/arrays/lab">
+              <Button className="w-full">
+                Try Array Lab
+              </Button>
+            </Link>
           </Card>
         </div>
       </div>
