@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 import { jwtVerify } from 'jose'
 
+// Ensure JWT_SECRET is properly typed
 const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key'
 
 // Add the paths that need authentication
