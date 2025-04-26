@@ -213,19 +213,19 @@ Queue* createQueue() {
               <div>
                 <div className="flex justify-between mb-2">
                   <span>Queue Basics</span>
-                  <span className="text-green-600">Completed</span>
+                  <span className="text-gray-600">Not Started</span>
                 </div>
                 <div className="w-full bg-gray-200 rounded-full h-2">
-                  <div className="bg-green-600 h-2 rounded-full" style={{ width: "100%" }}></div>
+                  <div className="bg-gray-600 h-2 rounded-full" style={{ width: "0%" }}></div>
                 </div>
               </div>
               <div>
                 <div className="flex justify-between mb-2">
                   <span>Implementation</span>
-                  <span className="text-yellow-600">In Progress</span>
+                  <span className="text-gray-600">Not Started</span>
                 </div>
                 <div className="w-full bg-gray-200 rounded-full h-2">
-                  <div className="bg-yellow-600 h-2 rounded-full" style={{ width: "60%" }}></div>
+                  <div className="bg-gray-600 h-2 rounded-full" style={{ width: "0%" }}></div>
                 </div>
               </div>
               <div>

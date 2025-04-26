@@ -24,12 +24,13 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className="dark">
       <body className={cn("min-h-screen bg-background font-sans antialiased", fontSans.variable)}>
         <ThemeProvider
           attribute="class"
-          defaultTheme="light"
-          enableSystem
+          defaultTheme="dark"
+          enableSystem={false}
+          forcedTheme="dark"
         >
           <MainNav />
           <main>{children}</main>
@@ -38,5 +39,4 @@ export default function RootLayout({
       </body>
     </html>
   )
-
 }

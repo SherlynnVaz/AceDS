@@ -39,18 +39,18 @@ export function MainNav() {
   }
 
   return (
-    <div className="border-b bg-white">
+    <div className="border-b border-border bg-background">
       <div className="flex h-16 items-center px-4 container mx-auto">
-        <Link href="/" className="font-bold text-xl flex items-center mr-8">
-          <BookOpen className="h-6 w-6 mr-2 text-blue-600" />
+        <Link href="/" className="font-bold text-xl flex items-center mr-8 text-foreground">
+          <BookOpen className="h-6 w-6 mr-2 text-primary" />
           <span>AceDS</span>
         </Link>
         <nav className="flex items-center space-x-4 lg:space-x-6 mx-6">
           <Link
             href="/"
             className={cn(
-              "text-sm font-medium transition-colors hover:text-blue-600",
-              pathname === "/" ? "text-blue-600" : "text-gray-600",
+              "text-sm font-medium transition-colors hover:text-primary",
+              pathname === "/" ? "text-primary" : "text-muted-foreground",
             )}
           >
             <div className="flex items-center">
@@ -61,8 +61,8 @@ export function MainNav() {
           <Link
             href="/topics"
             className={cn(
-              "text-sm font-medium transition-colors hover:text-blue-600",
-              pathname.startsWith("/topics") ? "text-blue-600" : "text-gray-600",
+              "text-sm font-medium transition-colors hover:text-primary",
+              pathname.startsWith("/topics") ? "text-primary" : "text-muted-foreground",
             )}
           >
             <div className="flex items-center">
@@ -77,7 +77,7 @@ export function MainNav() {
               <Button
                 variant="ghost"
                 size="sm"
-                className="text-gray-600 hover:text-blue-600"
+                className="text-muted-foreground hover:text-primary"
                 onClick={handleLogout}
               >
                 <LogOut className="h-4 w-4 mr-1" />
@@ -87,12 +87,12 @@ export function MainNav() {
           ) : (
             <>
               <Button asChild variant="ghost" size="sm">
-                <Link href="/login" className="text-gray-600 hover:text-blue-600">
+                <Link href="/login" className="text-muted-foreground hover:text-primary">
                   <User className="h-4 w-4 mr-1" />
                   Login
                 </Link>
               </Button>
-              <Button asChild size="sm">
+              <Button asChild size="sm" className="bg-primary text-primary-foreground hover:bg-primary/90">
                 <Link href="/register">Register</Link>
               </Button>
             </>
