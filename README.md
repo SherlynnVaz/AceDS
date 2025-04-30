@@ -2,6 +2,8 @@
 
 ## Project Overview
 AceDS is a full-stack web application built using React.js, Next.js, and MongoDB. It provides user authentication (register, login, logout) and a responsive interface for exploring data structures and algorithms interactively. The platform is designed to help users learn fundamental data structures through a structured and engaging interface.
+![image](https://github.com/user-attachments/assets/738f5ef1-aad6-4df7-8031-dcbaaef8cb47)
+
 
 ### Key Features
 - Secure user authentication system
@@ -14,7 +16,7 @@ AceDS is a full-stack web application built using React.js, Next.js, and MongoDB
 🔗 [Live Demo](https://ace-ds.vercel.app/)
 
 📹 [Demo Video Link](https://your-demo-video-link-here)
-*(Upload to YouTube or Google Drive and replace the above link)*
+
 
 ## Technologies Used
 
@@ -41,17 +43,14 @@ AceDS is a full-stack web application built using React.js, Next.js, and MongoDB
 
 1. Clone the repository
 ```bash
-git clone <repository-url>
+git clone https://github.com/SherlynnVaz/AceDS.git
 cd AceDS
 ```
 
 2. Install dependencies
 ```bash
 npm install
-# or
-yarn install
-# or
-pnpm install
+
 ```
 
 3. Set up environment variables
@@ -64,24 +63,11 @@ JWT_SECRET=your_jwt_secret
 4. Run the development server
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
+
 ```
 
 5. Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-## Project Structure
-```
-AceDS/
-├── app/              # Next.js app directory
-├── components/       # React components
-├── lib/             # Utility functions
-├── models/          # MongoDB models
-├── public/          # Static files
-└── styles/          # CSS styles
-```
 
 ## Submission Details
 - **Class-Division:** [Your Class-Div]
@@ -93,12 +79,4 @@ AceDS/
 - Presentation slides are available in the `presentation/` directory
 - Contains screenshots and detailed explanation of the project features
 
-## Contributing
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
 
-## License
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details 
