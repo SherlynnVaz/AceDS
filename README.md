@@ -13,9 +13,11 @@ AceDS is a full-stack web application built using React.js, Next.js, and MongoDB
 - Personalized access to learning content
 
 ## Demo
-🔗 [Live Demo](https://ace-ds.vercel.app/)
+[Live Demo](https://ace-ds.vercel.app/)
 
-📹 [Demo Video Link](https://your-demo-video-link-here)
+[Demo Video Link](https://drive.google.com/file/d/1m2Yr0k9BmfBIGlI4R-JKuT0e6BklqPcx/view?usp=sharing)
+
+[PPT](https://docs.google.com/presentation/d/1Sk3YzN9rW3guBWSjHmTl9fMeOCWaJnGf/edit?usp=sharing&ouid=115805126583546306213&rtpof=true&sd=true)
 
 
 ## Technologies Used
@@ -68,15 +70,5 @@ npm run dev
 
 5. Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-
-## Submission Details
-- **Class-Division:** [Your Class-Div]
-- **Project Title:** AceDS
-- **Team Leader:** [Your Name]
-- **Roll No:** [Your Roll No]
-
-## Presentation
-- Presentation slides are available in the `presentation/` directory
-- Contains screenshots and detailed explanation of the project features
 
 
