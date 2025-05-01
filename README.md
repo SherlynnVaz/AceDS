@@ -17,7 +17,7 @@ AceDS is a full-stack web application built using React.js, Next.js, and MongoDB
 
 [Demo Video Link](https://drive.google.com/file/d/1m2Yr0k9BmfBIGlI4R-JKuT0e6BklqPcx/view?usp=sharing)
 
-[PPT](https://docs.google.com/presentation/d/1Sk3YzN9rW3guBWSjHmTl9fMeOCWaJnGf/edit?usp=sharing&ouid=115805126583546306213&rtpof=true&sd=true)
+[PPT](https://drive.google.com/file/d/1TOyAfafMYsmCl4rGSfYISMqUE_cdBnZH/view?usp=sharing)
 
 
 ## Technologies Used
