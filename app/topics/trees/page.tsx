@@ -23,7 +23,7 @@ export default function TreesPage() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <div className="lg:col-span-2">
           <h1 className="text-3xl font-bold mb-2">Tree Data Structure</h1>
-          <p className="text-gray-600 mb-6">
+          <p className="text-white mb-6">
             A Tree is a hierarchical data structure that consists of nodes connected by edges.
             Each node contains a value and references to its child nodes.
           </p>
@@ -37,7 +37,7 @@ export default function TreesPage() {
 
             <TabsContent value="overview" className="space-y-4">
               <h2 className="text-2xl font-bold">Tree Overview</h2>
-              
+
               <div className="space-y-4">
                 <h3 className="text-xl font-semibold">Key Characteristics</h3>
                 <ul className="list-disc list-inside space-y-2">
@@ -60,9 +60,9 @@ export default function TreesPage() {
 
                 <h3 className="text-xl font-semibold">Time Complexity (BST)</h3>
                 <div className="overflow-x-auto">
-                  <table className="min-w-full border-collapse border border-gray-300">
+                  <table className="min-w-full border-collapse border border-border">
                     <thead>
-                      <tr className="bg-gray-100">
+                      <tr className="bg-background">
                         <th className="border border-gray-300 px-4 py-2">Operation</th>
                         <th className="border border-gray-300 px-4 py-2">Average Case</th>
                         <th className="border border-gray-300 px-4 py-2">Worst Case</th>
@@ -97,11 +97,11 @@ export default function TreesPage() {
 
             <TabsContent value="implementation" className="space-y-4">
               <h2 className="text-2xl font-bold">Tree Implementation</h2>
-              
+
               <div className="space-y-4">
                 <h3 className="text-xl font-semibold">Binary Search Tree</h3>
-                <pre className="bg-gray-100 p-4 rounded-lg overflow-x-auto">
-{`// Binary Search Tree implementation in C
+                <pre className="bg-background p-4 rounded-lg overflow-x-auto text-white">
+                  {`// Binary Search Tree implementation in C
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -137,8 +137,8 @@ Node* insert(Node* root, int value) {
                 </pre>
 
                 <h3 className="text-xl font-semibold">Tree Traversals</h3>
-                <pre className="bg-gray-100 p-4 rounded-lg overflow-x-auto">
-{`// Tree traversal implementations
+                <pre className="bg-background p-4 rounded-lg overflow-x-auto text-white">
+                  {`// Tree traversal implementations
 void inorderTraversal(Node* root) {
     if (root != NULL) {
         inorderTraversal(root->left);
@@ -165,8 +165,8 @@ void postorderTraversal(Node* root) {
                 </pre>
 
                 <h3 className="text-xl font-semibold">Search and Delete</h3>
-                <pre className="bg-gray-100 p-4 rounded-lg overflow-x-auto">
-{`// Search in BST
+                <pre className="bg-background p-4 rounded-lg overflow-x-auto text-white">
+                  {`// Search in BST
 Node* search(Node* root, int key) {
     if (root == NULL || root->data == key) {
         return root;
@@ -223,7 +223,7 @@ Node* deleteNode(Node* root, int key) {
 
             <TabsContent value="applications" className="space-y-4">
               <h2 className="text-2xl font-bold">Tree Applications</h2>
-              
+
               <div className="space-y-4">
                 <h3 className="text-xl font-semibold">Real-world Applications</h3>
                 <ul className="list-disc list-inside space-y-2">
@@ -236,8 +236,8 @@ Node* deleteNode(Node* root, int key) {
                 </ul>
 
                 <h3 className="text-xl font-semibold">Example: Expression Tree</h3>
-                <pre className="bg-gray-100 p-4 rounded-lg overflow-x-auto">
-{`// Expression Tree implementation
+                <pre className="bg-background p-4 rounded-lg overflow-x-auto text-white">
+                  {`// Expression Tree implementation
 typedef struct ExprNode {
     char data;
     struct ExprNode* left;
@@ -290,7 +290,7 @@ int evaluate(ExprNode* root) {
                   <span>Tree Basics</span>
                   <span className="text-green-600">Completed</span>
                 </div>
-                <div className="w-full bg-gray-200 rounded-full h-2">
+                <div className="w-full bg-border rounded-full h-2">
                   <div className="bg-green-600 h-2 rounded-full" style={{ width: "100%" }}></div>
                 </div>
               </div>
@@ -299,16 +299,16 @@ int evaluate(ExprNode* root) {
                   <span>Implementation</span>
                   <span className="text-yellow-600">In Progress</span>
                 </div>
-                <div className="w-full bg-gray-200 rounded-full h-2">
+                <div className="w-full bg-border rounded-full h-2">
                   <div className="bg-yellow-600 h-2 rounded-full" style={{ width: "60%" }}></div>
                 </div>
               </div>
               <div>
                 <div className="flex justify-between mb-2">
                   <span>Advanced Topics</span>
-                  <span className="text-gray-600">Not Started</span>
+                  <span className="text-white">Not Started</span>
                 </div>
-                <div className="w-full bg-gray-200 rounded-full h-2">
+                <div className="w-full bg-border rounded-full h-2">
                   <div className="bg-gray-600 h-2 rounded-full" style={{ width: "0%" }}></div>
                 </div>
               </div>
@@ -319,17 +319,17 @@ int evaluate(ExprNode* root) {
             <h3 className="text-xl font-bold mb-4">Related Topics</h3>
             <ul className="space-y-2">
               <li>
-                <Link href="/topics/graphs" className="text-blue-600 hover:underline">
+                <Link href="/topics/graphs" className="text-green-400 hover:underline">
                   Graphs
                 </Link>
               </li>
               <li>
-                <Link href="/topics/heaps" className="text-blue-600 hover:underline">
+                <Link href="/topics/heaps" className="text-green-400 hover:underline">
                   Heaps
                 </Link>
               </li>
               <li>
-                <Link href="/topics/recursion" className="text-blue-600 hover:underline">
+                <Link href="/topics/recursion" className="text-green-400 hover:underline">
                   Recursion
                 </Link>
               </li>

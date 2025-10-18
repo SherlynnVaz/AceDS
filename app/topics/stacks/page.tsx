@@ -24,7 +24,7 @@ export default function StacksTopicPage() {
         {/* Main Content */}
         <div className="flex-1">
           <h1 className="text-3xl font-bold mb-2">Stacks</h1>
-          <p className="text-gray-600 mb-6">
+          <p className="text-white mb-6">
             Learn about the stack data structure, its operations, and implementations.
           </p>
 
@@ -70,17 +70,16 @@ export default function StacksTopicPage() {
                 </ul>
 
                 <h3>Visual Representation</h3>
-                <div className="bg-gray-100 p-4 rounded-lg mb-4">
+                <div className="bg-background p-4 rounded-lg mb-4">
                   <div className="flex flex-col-reverse items-center">
-                    <div className="w-full max-w-xs border-2 border-dashed border-gray-300 p-4 text-center">
+                    <div className="w-full max-w-xs border-2 border-dashed border-border p-4 text-center">
                       Stack Base
                     </div>
                     {[5, 8, 3, 12].map((item, index) => (
                       <div
                         key={index}
-                        className={`w-full max-w-xs border-2 border-gray-300 p-4 text-center ${
-                          index === 0 ? "bg-green-100 border-green-400" : "bg-white"
-                        }`}
+                        className={`w-full max-w-xs border-2 border-border p-4 text-center ${index === 0 ? "bg-green-800 border-green-400" : "bg-background"
+                          }`}
                       >
                         {item} {index === 0 && <span className="text-green-600 font-bold">(Top)</span>}
                       </div>
@@ -130,7 +129,7 @@ export default function StacksTopicPage() {
                   track the top of the stack.
                 </p>
 
-                <pre className="bg-gray-100 p-4 rounded-lg overflow-x-auto">
+                <pre className="bg-background p-4 rounded-lg overflow-x-auto text-white">
                   <code className="language-javascript">{`class Stack {
   constructor() {
     this.items = [];
@@ -185,7 +184,7 @@ export default function StacksTopicPage() {
                   the next node.
                 </p>
 
-                <pre className="bg-gray-100 p-4 rounded-lg overflow-x-auto">
+                <pre className="bg-background p-4 rounded-lg overflow-x-auto text-white">
                   <code className="language-javascript">{`class Node {
   constructor(data) {
     this.data = data;
@@ -296,7 +295,7 @@ class Stack {
                 <h3>Example: Balanced Parentheses</h3>
                 <p>A classic problem that uses stacks is checking if parentheses in an expression are balanced.</p>
 
-                <pre className="bg-gray-100 p-4 rounded-lg overflow-x-auto">
+                <pre className="bg-background p-4 rounded-lg overflow-x-auto text-white">
                   <code className="language-javascript">{`function areParenthesesBalanced(expr) {
   const stack = [];
   
@@ -368,11 +367,11 @@ console.log(areParenthesesBalanced("({[})")); // false`}</code>
                 </div>
                 <div className="flex justify-between text-sm">
                   <span>Applications</span>
-                  <span className="text-gray-400">Not Started</span>
+                  <span className="text-white">Not Started</span>
                 </div>
                 <div className="flex justify-between text-sm">
                   <span>Practice Lab</span>
-                  <span className="text-gray-400">Not Started</span>
+                  <span className="text-white">Not Started</span>
                 </div>
               </div>
             </CardContent>

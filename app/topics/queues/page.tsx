@@ -23,7 +23,7 @@ export default function QueuesPage() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <div className="lg:col-span-2">
           <h1 className="text-3xl font-bold mb-2">Queue Data Structure</h1>
-          <p className="text-gray-600 mb-6">
+          <p className="text-white mb-6">
             A Queue is a linear data structure that follows the First In First Out (FIFO) principle.
             Elements are added at the rear (enqueue) and removed from the front (dequeue).
           </p>
@@ -37,7 +37,7 @@ export default function QueuesPage() {
 
             <TabsContent value="overview" className="space-y-4">
               <h2 className="text-2xl font-bold">Queue Overview</h2>
-              
+
               <div className="space-y-4">
                 <h3 className="text-xl font-semibold">Key Characteristics</h3>
                 <ul className="list-disc list-inside space-y-2">
@@ -60,7 +60,7 @@ export default function QueuesPage() {
                 <div className="overflow-x-auto">
                   <table className="min-w-full border-collapse border border-gray-300">
                     <thead>
-                      <tr className="bg-gray-100">
+                      <tr className="bg-background">
                         <th className="border border-gray-300 px-4 py-2">Operation</th>
                         <th className="border border-gray-300 px-4 py-2">Array Implementation</th>
                         <th className="border border-gray-300 px-4 py-2">Linked List Implementation</th>
@@ -95,11 +95,11 @@ export default function QueuesPage() {
 
             <TabsContent value="implementation" className="space-y-4">
               <h2 className="text-2xl font-bold">Queue Implementation</h2>
-              
+
               <div className="space-y-4">
                 <h3 className="text-xl font-semibold">Array Implementation</h3>
-                <pre className="bg-gray-100 p-4 rounded-lg overflow-x-auto">
-{`// Queue implementation using array
+                <pre className="bg-background p-4 rounded-lg overflow-x-auto text-white">
+                  {`// Queue implementation using array
 typedef struct {
     int* array;
     int front;
@@ -119,8 +119,8 @@ Queue* createQueue(int capacity) {
                 </pre>
 
                 <h3 className="text-xl font-semibold">Linked List Implementation</h3>
-                <pre className="bg-gray-100 p-4 rounded-lg overflow-x-auto">
-{`// Queue implementation using linked list
+                <pre className="bg-background p-4 rounded-lg overflow-x-auto text-white">
+                  {`// Queue implementation using linked list
 typedef struct Node {
     int data;
     struct Node* next;
@@ -141,8 +141,8 @@ Queue* createQueue() {
                 <h3 className="text-xl font-semibold">Common Operations</h3>
                 <div className="space-y-2">
                   <h4 className="font-semibold">Enqueue Operation</h4>
-                  <pre className="bg-gray-100 p-4 rounded-lg overflow-x-auto">
-{`void enqueue(Queue* queue, int item) {
+                  <pre className="bg-background p-4 rounded-lg overflow-x-auto text-white">
+                    {`void enqueue(Queue* queue, int item) {
     if (isFull(queue)) return;
     queue->rear = (queue->rear + 1) % queue->capacity;
     queue->array[queue->rear] = item;
@@ -151,8 +151,8 @@ Queue* createQueue() {
                   </pre>
 
                   <h4 className="font-semibold">Dequeue Operation</h4>
-                  <pre className="bg-gray-100 p-4 rounded-lg overflow-x-auto">
-{`int dequeue(Queue* queue) {
+                  <pre className="bg-background p-4 rounded-lg overflow-x-auto text-white">
+                    {`int dequeue(Queue* queue) {
     if (isEmpty(queue)) return INT_MIN;
     int item = queue->array[queue->front];
     queue->front = (queue->front + 1) % queue->capacity;
@@ -166,7 +166,7 @@ Queue* createQueue() {
 
             <TabsContent value="applications" className="space-y-4">
               <h2 className="text-2xl font-bold">Queue Applications</h2>
-              
+
               <div className="space-y-4">
                 <h3 className="text-xl font-semibold">Real-world Applications</h3>
                 <ul className="list-disc list-inside space-y-2">
@@ -179,8 +179,8 @@ Queue* createQueue() {
                 </ul>
 
                 <h3 className="text-xl font-semibold">Example: BFS using Queue</h3>
-                <pre className="bg-gray-100 p-4 rounded-lg overflow-x-auto">
-{`void BFS(Graph* graph, int startVertex) {
+                <pre className="bg-background p-4 rounded-lg overflow-x-auto text-white">
+                  {`void BFS(Graph* graph, int startVertex) {
     Queue* queue = createQueue(graph->V);
     bool* visited = (bool*)calloc(graph->V, sizeof(bool));
     
@@ -213,28 +213,28 @@ Queue* createQueue() {
               <div>
                 <div className="flex justify-between mb-2">
                   <span>Queue Basics</span>
-                  <span className="text-gray-600">Not Started</span>
+                  <span className="text-white">Not Started</span>
                 </div>
-                <div className="w-full bg-gray-200 rounded-full h-2">
-                  <div className="bg-gray-600 h-2 rounded-full" style={{ width: "0%" }}></div>
+                <div className="w-full bg-border rounded-full h-2">
+                  <div className="bg-border h-2 rounded-full" style={{ width: "0%" }}></div>
                 </div>
               </div>
               <div>
                 <div className="flex justify-between mb-2">
                   <span>Implementation</span>
-                  <span className="text-gray-600">Not Started</span>
+                  <span className="text-white">Not Started</span>
                 </div>
-                <div className="w-full bg-gray-200 rounded-full h-2">
-                  <div className="bg-gray-600 h-2 rounded-full" style={{ width: "0%" }}></div>
+                <div className="w-full bg-border rounded-full h-2">
+                  <div className="bg-border h-2 rounded-full" style={{ width: "0%" }}></div>
                 </div>
               </div>
               <div>
                 <div className="flex justify-between mb-2">
                   <span>Advanced Topics</span>
-                  <span className="text-gray-600">Not Started</span>
+                  <span className="text-white">Not Started</span>
                 </div>
-                <div className="w-full bg-gray-200 rounded-full h-2">
-                  <div className="bg-gray-600 h-2 rounded-full" style={{ width: "0%" }}></div>
+                <div className="w-full bg-border rounded-full h-2">
+                  <div className="bg-border h-2 rounded-full" style={{ width: "0%" }}></div>
                 </div>
               </div>
             </div>
@@ -244,17 +244,17 @@ Queue* createQueue() {
             <h3 className="text-xl font-bold mb-4">Related Topics</h3>
             <ul className="space-y-2">
               <li>
-                <Link href="/topics/arrays" className="text-blue-600 hover:underline">
+                <Link href="/topics/arrays" className="text-green-400 hover:underline">
                   Arrays
                 </Link>
               </li>
               <li>
-                <Link href="/topics/linked-lists" className="text-blue-600 hover:underline">
+                <Link href="/topics/linked-lists" className="text-green-400 hover:underline">
                   Linked Lists
                 </Link>
               </li>
               <li>
-                <Link href="/topics/stacks" className="text-blue-600 hover:underline">
+                <Link href="/topics/stacks" className="text-green-400 hover:underline">
                   Stacks
                 </Link>
               </li>

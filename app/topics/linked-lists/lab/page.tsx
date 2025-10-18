@@ -75,7 +75,7 @@ int main() {
 
       setOutput(outputText)
     } catch (error) {
-      setOutput(`Error: ${error.message}`)
+      setOutput(`Error: ${String(error)}`)
       setIsSuccess(false)
     } finally {
       setIsRunning(false)
@@ -234,7 +234,7 @@ int main() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <div className="lg:col-span-2">
           <h1 className="text-3xl font-bold mb-2">Linked List Implementation Lab</h1>
-          <p className="text-gray-600 mb-6">
+          <p className="text-white mb-6">
             Practice implementing a Singly Linked List with its core operations.
           </p>
 
@@ -283,7 +283,7 @@ int main() {
 
             <TabsContent value="code">
               <div className="border rounded-lg overflow-hidden mb-4">
-                <div className="bg-gray-100 p-2 border-b flex justify-between items-center">
+                <div className="bg-background p-2 border-b flex justify-between items-center">
                   <span className="font-medium">Linked List Implementation</span>
                   <div className="flex gap-2">
                     <Button variant="outline" size="sm" onClick={resetCode} className="h-8">
@@ -302,16 +302,16 @@ int main() {
                 <textarea
                   value={code}
                   onChange={(e) => setCode(e.target.value)}
-                  className="w-full h-96 p-4 font-mono text-sm focus:outline-none"
+                  className="w-full h-96 p-4 font-mono text-sm focus:outline-none bg-background text-white"
                   spellCheck="false"
                 />
               </div>
 
               <div className="border rounded-lg overflow-hidden">
-                <div className="bg-gray-100 p-2 border-b">
+                <div className="bg-background p-2 border-b">
                   <span className="font-medium">Output</span>
                 </div>
-                <pre className="p-4 font-mono text-sm h-48 overflow-auto bg-black text-white">
+                <pre className="p-4 font-mono text-sm h-48 overflow-auto bg-background text-white">
                   {output || "// Run your code to see the output here"}
                 </pre>
               </div>
@@ -328,12 +328,12 @@ int main() {
 
             <TabsContent value="solution">
               <div className="border rounded-lg overflow-hidden">
-                <div className="bg-gray-100 p-2 border-b">
+                <div className="bg-background p-2 border-b">
                   <span className="font-medium">Solution</span>
                 </div>
                 <pre className="p-4 font-mono text-sm overflow-auto">{solutionCode}</pre>
               </div>
-              <p className="mt-4 text-gray-600">
+              <p className="mt-4 text-white">
                 This solution demonstrates a complete Singly Linked List implementation with proper memory management
                 and handling of all edge cases. Study how it handles node insertion, deletion, and memory cleanup.
               </p>
@@ -347,7 +347,7 @@ int main() {
               <CardTitle>Linked List Visualization</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="bg-gray-50 p-4 rounded-lg">
+              <div className="bg-background p-4 rounded-lg text-white">
                 <div className="space-y-2">
                   {output.split('\n').map((line, index) => {
                     if (!line.includes(":")) return null;

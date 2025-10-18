@@ -59,7 +59,7 @@ export default function TopicsPage() {
     <div className="container mx-auto px-4 py-8">
       <div className="mb-8">
         <h1 className="text-3xl font-bold mb-2">Data Structure Topics</h1>
-        <p className="text-gray-600">
+        <p className="text-white">
           Explore our comprehensive collection of data structure topics. Each topic includes theory, implementation, and
           interactive practice labs.
         </p>

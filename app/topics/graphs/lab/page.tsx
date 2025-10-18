@@ -57,7 +57,7 @@ export default function GraphLabPage() {
 
       setOutput(output.join("\n"))
     } catch (error) {
-      setOutput(`Error: ${error.message}`)
+      setOutput(`Error: ${String(error)}`)
     } finally {
       setIsRunning(false)
     }
@@ -82,7 +82,7 @@ export default function GraphLabPage() {
         <div className="lg:col-span-2 space-y-6">
           <div>
             <h1 className="text-3xl font-bold mb-2">Graph Lab</h1>
-            <p className="text-gray-600">
+            <p className="text-white">
               Implement a graph data structure using adjacency list representation.
               Complete the required functions to create, modify, and traverse the graph.
             </p>
@@ -99,7 +99,7 @@ export default function GraphLabPage() {
                   <textarea
                     value={code}
                     onChange={(e) => setCode(e.target.value)}
-                    className="w-full h-[500px] font-mono p-4 bg-gray-100 rounded-lg"
+                    className="w-full h-[500px] font-mono p-4 bg-background text-white rounded-lg"
                     spellCheck="false"
                   />
                 </div>
@@ -119,13 +119,13 @@ export default function GraphLabPage() {
                     Reset Code
                   </Button>
                 </div>
-                <div className="bg-gray-100 p-4 rounded-lg">
+                <div className="bg-background p-4 rounded-lg">
                   <h3 className="font-bold mb-2">Output:</h3>
                   <pre className="whitespace-pre-wrap">{output}</pre>
                 </div>
               </TabsContent>
               <TabsContent value="solution" className="space-y-4">
-                <pre className="bg-gray-100 p-4 rounded-lg overflow-x-auto">
+                <pre className="bg-background p-4 rounded-lg overflow-x-auto text-white">
                   {solutionCode}
                 </pre>
               </TabsContent>
@@ -169,26 +169,17 @@ export default function GraphLabPage() {
             <h3 className="text-xl font-bold mb-4">Next Steps</h3>
             <ul className="space-y-2">
               <li>
-                <Link
-                  href="/topics/graphs"
-                  className="text-blue-600 hover:underline"
-                >
+                <Link href="/topics/graphs" className="text-green-400 hover:underline">
                   Review Graph Theory
                 </Link>
               </li>
               <li>
-                <Link
-                  href="/topics/trees"
-                  className="text-blue-600 hover:underline"
-                >
+                <Link href="/topics/trees" className="text-green-400 hover:underline">
                   Learn about Trees
                 </Link>
               </li>
               <li>
-                <Link
-                  href="/topics/shortest-path"
-                  className="text-blue-600 hover:underline"
-                >
+                <Link href="/topics/shortest-path" className="text-green-400 hover:underline">
                   Explore Shortest Path Algorithms
                 </Link>
               </li>

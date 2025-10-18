@@ -23,7 +23,7 @@ export default function LinkedListsPage() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <div className="lg:col-span-2">
           <h1 className="text-3xl font-bold mb-2">Linked Lists</h1>
-          <p className="text-gray-600 mb-6">
+          <p className="text-white mb-6">
             A linear data structure where elements are stored in nodes, and each node points to the next node in the sequence.
           </p>
 
@@ -46,13 +46,13 @@ export default function LinkedListsPage() {
                   <CardTitle>Linked List Overview</CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                  <p>
+                  <p className="text-white">
                     A linked list is a linear data structure where elements are not stored at contiguous memory locations.
                     Instead, each element (node) contains a data field and a reference (link) to the next node in the sequence.
                   </p>
                   <div className="space-y-2">
                     <h3 className="font-semibold">Key Characteristics:</h3>
-                    <ul className="list-disc list-inside space-y-1">
+                    <ul className="list-disc list-inside space-y-1 text-white">
                       <li>Dynamic size - can grow or shrink during program execution</li>
                       <li>Efficient insertion and deletion at any position</li>
                       <li>No memory wastage (allocates memory as needed)</li>
@@ -61,7 +61,7 @@ export default function LinkedListsPage() {
                   </div>
                   <div className="space-y-2">
                     <h3 className="font-semibold">Types of Linked Lists:</h3>
-                    <ul className="list-disc list-inside space-y-1">
+                    <ul className="list-disc list-inside space-y-1 text-white">
                       <li>Singly Linked List - each node points to the next node</li>
                       <li>Doubly Linked List - each node points to both next and previous nodes</li>
                       <li>Circular Linked List - last node points back to the first node</li>
@@ -79,7 +79,7 @@ export default function LinkedListsPage() {
                 <CardContent className="space-y-4">
                   <div className="space-y-2">
                     <h3 className="font-semibold">Node Structure:</h3>
-                    <pre className="bg-gray-100 p-4 rounded-lg overflow-x-auto">
+                    <pre className="bg-background text-white p-4 rounded-lg overflow-x-auto">
                       {`struct Node {
     int data;
     struct Node* next;
@@ -164,7 +164,7 @@ export default function LinkedListsPage() {
                 </div>
                 <div className="flex items-center justify-between">
                   <span className="text-sm font-medium">Applications</span>
-                  <span className="text-sm text-gray-600">Not Started</span>
+                  <span className="text-sm text-white">Not Started</span>
                 </div>
               </div>
             </CardContent>

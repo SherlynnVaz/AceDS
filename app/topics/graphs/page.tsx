@@ -23,7 +23,7 @@ export default function GraphsPage() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <div className="lg:col-span-2">
           <h1 className="text-3xl font-bold mb-2">Graph Data Structure</h1>
-          <p className="text-gray-600 mb-6">
+          <p className="text-white mb-6">
             A Graph is a non-linear data structure consisting of vertices (nodes) and edges that connect these vertices.
             It is used to represent relationships between objects and model real-world networks.
           </p>
@@ -37,7 +37,7 @@ export default function GraphsPage() {
 
             <TabsContent value="overview" className="space-y-4">
               <h2 className="text-2xl font-bold">Graph Overview</h2>
-              
+
               <div className="space-y-4">
                 <h3 className="text-xl font-semibold">Key Characteristics</h3>
                 <ul className="list-disc list-inside space-y-2">
@@ -60,9 +60,9 @@ export default function GraphsPage() {
 
                 <h3 className="text-xl font-semibold">Time Complexity</h3>
                 <div className="overflow-x-auto">
-                  <table className="min-w-full border-collapse border border-gray-300">
+                  <table className="min-w-full border-collapse border border-border">
                     <thead>
-                      <tr className="bg-gray-100">
+                      <tr className="bg-background">
                         <th className="border border-gray-300 px-4 py-2">Operation</th>
                         <th className="border border-gray-300 px-4 py-2">Adjacency List</th>
                         <th className="border border-gray-300 px-4 py-2">Adjacency Matrix</th>
@@ -97,11 +97,11 @@ export default function GraphsPage() {
 
             <TabsContent value="implementation" className="space-y-4">
               <h2 className="text-2xl font-bold">Graph Implementation</h2>
-              
+
               <div className="space-y-4">
                 <h3 className="text-xl font-semibold">Adjacency List</h3>
-                <pre className="bg-gray-100 p-4 rounded-lg overflow-x-auto">
-{`// Graph implementation using adjacency list
+                <pre className="bg-background p-4 rounded-lg overflow-x-auto text-white">
+                  {`// Graph implementation using adjacency list
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -142,8 +142,8 @@ Graph* createGraph(int vertices) {
                 </pre>
 
                 <h3 className="text-xl font-semibold">Graph Traversal</h3>
-                <pre className="bg-gray-100 p-4 rounded-lg overflow-x-auto">
-{`// BFS implementation
+                <pre className="bg-background p-4 rounded-lg overflow-x-auto text-white">
+                  {`// BFS implementation
 void BFS(Graph* graph, int startVertex) {
     // Create a queue
     int queue[1000];
@@ -189,8 +189,8 @@ void DFS(Graph* graph, int vertex) {
                 </pre>
 
                 <h3 className="text-xl font-semibold">Shortest Path (Dijkstra's)</h3>
-                <pre className="bg-gray-100 p-4 rounded-lg overflow-x-auto">
-{`// Dijkstra's Algorithm implementation
+                <pre className="bg-background p-4 rounded-lg overflow-x-auto text-white">
+                  {`// Dijkstra's Algorithm implementation
 #define INF 99999
 
 void dijkstra(int graph[V][V], int src) {
@@ -225,7 +225,7 @@ void dijkstra(int graph[V][V], int src) {
 
             <TabsContent value="applications" className="space-y-4">
               <h2 className="text-2xl font-bold">Graph Applications</h2>
-              
+
               <div className="space-y-4">
                 <h3 className="text-xl font-semibold">Real-world Applications</h3>
                 <ul className="list-disc list-inside space-y-2">
@@ -238,8 +238,8 @@ void dijkstra(int graph[V][V], int src) {
                 </ul>
 
                 <h3 className="text-xl font-semibold">Example: Social Network</h3>
-                <pre className="bg-gray-100 p-4 rounded-lg overflow-x-auto">
-{`// Social Network Graph implementation
+                <pre className="bg-background p-4 rounded-lg overflow-x-auto text-white">
+                  {`// Social Network Graph implementation
 typedef struct User {
     int id;
     char* name;
@@ -297,7 +297,7 @@ void findFriendsOfFriends(User* user) {
                   <span>Graph Basics</span>
                   <span className="text-green-600">Completed</span>
                 </div>
-                <div className="w-full bg-gray-200 rounded-full h-2">
+                <div className="w-full bg-border rounded-full h-2">
                   <div className="bg-green-600 h-2 rounded-full" style={{ width: "100%" }}></div>
                 </div>
               </div>
@@ -306,16 +306,16 @@ void findFriendsOfFriends(User* user) {
                   <span>Implementation</span>
                   <span className="text-yellow-600">In Progress</span>
                 </div>
-                <div className="w-full bg-gray-200 rounded-full h-2">
+                <div className="w-full bg-border rounded-full h-2">
                   <div className="bg-yellow-600 h-2 rounded-full" style={{ width: "60%" }}></div>
                 </div>
               </div>
               <div>
                 <div className="flex justify-between mb-2">
                   <span>Advanced Topics</span>
-                  <span className="text-gray-600">Not Started</span>
+                  <span className="text-white">Not Started</span>
                 </div>
-                <div className="w-full bg-gray-200 rounded-full h-2">
+                <div className="w-full bg-border rounded-full h-2">
                   <div className="bg-gray-600 h-2 rounded-full" style={{ width: "0%" }}></div>
                 </div>
               </div>
@@ -326,17 +326,17 @@ void findFriendsOfFriends(User* user) {
             <h3 className="text-xl font-bold mb-4">Related Topics</h3>
             <ul className="space-y-2">
               <li>
-                <Link href="/topics/trees" className="text-blue-600 hover:underline">
+                <Link href="/topics/trees" className="text-green-400 hover:underline">
                   Trees
                 </Link>
               </li>
               <li>
-                <Link href="/topics/sorting" className="text-blue-600 hover:underline">
+                <Link href="/topics/sorting" className="text-green-400 hover:underline">
                   Sorting Algorithms
                 </Link>
               </li>
               <li>
-                <Link href="/topics/dynamic-programming" className="text-blue-600 hover:underline">
+                <Link href="/topics/dynamic-programming" className="text-green-400 hover:underline">
                   Dynamic Programming
                 </Link>
               </li>
