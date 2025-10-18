@@ -11,37 +11,28 @@ export function MainNav() {
   const pathname = usePathname()
   const router = useRouter()
   const [isLoggedIn, setIsLoggedIn] = useState(false)
-  const [user, setUser] = useState<any>(null)
 
+  // This effect checks localStorage to see if the user is logged in
   useEffect(() => {
-    // Check login status whenever component mounts or pathname changes
     const storedUser = localStorage.getItem("user")
-    if (storedUser) {
-      setUser(JSON.parse(storedUser))
-      setIsLoggedIn(true)
-    } else {
-      setUser(null)
-      setIsLoggedIn(false)
-    }
-  }, [pathname])
+    setIsLoggedIn(!!storedUser)
+  }, [pathname]) // Re-check on every route change
 
   const handleLogout = async () => {
     // Clear local storage
     localStorage.removeItem("user")
-    
-    // Clear the token cookie by making a request to an API endpoint
-    await fetch("/api/auth/logout", {
-      method: "POST",
-    })
 
-    // Redirect to home page
-    router.push("/")
+    // Call the logout API endpoint to clear the cookie
+    await fetch("/api/auth/logout", { method: "POST" })
+
+    // Force a reload to update the app state and redirect to home
+    window.location.href = "/";
   }
 
   return (
-    <div className="border-b border-border bg-background">
+    <div className="border-b">
       <div className="flex h-16 items-center px-4 container mx-auto">
-        <Link href="/" className="font-bold text-xl flex items-center mr-8 text-foreground">
+        <Link href="/" className="font-bold text-xl flex items-center mr-8">
           <BookOpen className="h-6 w-6 mr-2 text-primary" />
           <span>AceDS</span>
         </Link>
@@ -53,10 +44,7 @@ export function MainNav() {
               pathname === "/" ? "text-primary" : "text-muted-foreground",
             )}
           >
-            <div className="flex items-center">
-              <Home className="h-4 w-4 mr-1" />
-              <span>Home</span>
-            </div>
+            Home
           </Link>
           <Link
             href="/topics"
@@ -65,33 +53,28 @@ export function MainNav() {
               pathname.startsWith("/topics") ? "text-primary" : "text-muted-foreground",
             )}
           >
-            <div className="flex items-center">
-              <BookOpen className="h-4 w-4 mr-1" />
-              <span>Topics</span>
-            </div>
+            Topics
           </Link>
         </nav>
         <div className="ml-auto flex items-center space-x-4">
           {isLoggedIn ? (
-            <>
-              <Button
-                variant="ghost"
-                size="sm"
-                className="text-muted-foreground hover:text-primary"
-                onClick={handleLogout}
-              >
-                <LogOut className="h-4 w-4 mr-1" />
-                Logout
-              </Button>
-            </>
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={handleLogout}
+            >
+              <LogOut className="h-4 w-4 mr-1" />
+              Logout
+            </Button>
           ) : (
             <>
               <Button asChild variant="ghost" size="sm">
-                <Link href="/login" className="text-muted-foreground hover:text-primary">
+                <Link href="/login">
                   <User className="h-4 w-4 mr-1" />
                   Login
                 </Link>
               </Button>
+              {/* This button now has the explicit green styling */}
               <Button asChild size="sm" className="bg-primary text-primary-foreground hover:bg-primary/90">
                 <Link href="/register">Register</Link>
               </Button>
